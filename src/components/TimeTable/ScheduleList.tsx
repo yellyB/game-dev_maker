@@ -3,7 +3,6 @@ import styled from "styled-components";
 import { schedules } from "../../datas";
 
 function ScheduleList() {
-  console.log(schedules);
   return (
     <Container>
       [스케줄 목록]
