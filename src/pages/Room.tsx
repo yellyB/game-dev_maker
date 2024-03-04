@@ -1,5 +1,6 @@
 import { useState } from "react";
 import styled from "styled-components";
+import Overlay from "../components/Overlay";
 import ScheduleExecutionProgress from "../components/ScheduleExecutionProgress";
 import Status from "../components/Status";
 import TimeTable from "../components/TimeTable";
@@ -24,21 +25,12 @@ function Room() {
       <Background className="container">
         <Content style={{ border: "3px solid purple" }}>
           <Status />
-          {/* todo: overlay 따로 컴포넌트 분리 */}
-          {showOverlay && (
-            <Overlay onClick={() => setShowOverlay(false)}>
-              <OverlayContent
-                onClick={(e: React.MouseEvent<HTMLDivElement>) =>
-                  e.stopPropagation()
-                }
-              >
-                <TimeTable
-                  isOpen={isTimeTableOpen}
-                  onClose={() => setIsTimeTableOpen(false)}
-                />
-              </OverlayContent>
-            </Overlay>
-          )}
+          <Overlay isShow={showOverlay} onClose={() => setShowOverlay(false)}>
+            <TimeTable
+              isOpen={isTimeTableOpen}
+              onClose={() => setIsTimeTableOpen(false)}
+            />
+          </Overlay>
 
           {isScheduleExcuting && <ScheduleExecutionProgress />}
         </Content>
@@ -71,20 +63,20 @@ const Background = styled.div`
   background-position: center;
 `;
 
-const Overlay = styled.div`
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background-color: rgba(0, 0, 0, 0.5); /* 어두운 배경 색상과 투명도 조절 */
-  z-index: 999; /* 다른 요소 위에 오도록 설정 */
-  display: flex;
-  align-items: center;
-  justify-content: center;
-`;
+// const Overlay = styled.div`
+//   position: fixed;
+//   top: 0;
+//   left: 0;
+//   width: 100%;
+//   height: 100%;
+//   background-color: rgba(0, 0, 0, 0.5); /* 어두운 배경 색상과 투명도 조절 */
+//   z-index: 999; /* 다른 요소 위에 오도록 설정 */
+//   display: flex;
+//   align-items: center;
+//   justify-content: center;
+// `;
 
-const OverlayContent = styled.div``;
+// const OverlayContent = styled.div``;
 
 const Content = styled.div`
   //  todo : 임시 스타일. 추후 수정
