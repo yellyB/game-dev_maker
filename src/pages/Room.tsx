@@ -1,10 +1,12 @@
 import { useState } from "react";
 import styled from "styled-components";
-import Scheduling from "../components/Scheduling";
+import ScheduleExecutionProgress from "../components/ScheduleExecutionProgress";
+import Status from "../components/Status";
 import TimeTable from "../components/TimeTable";
+import { currentMonth } from "../datas/userData";
 
 function Room() {
-  const [isTimeTableOpen, setIsTimeTableOpen] = useState(true);
+  const [isTimeTableOpen, setIsTimeTableOpen] = useState(false);
   const [isScheduleExcuting, setIsScheduleExcuting] = useState(false);
   const [showOverlay, setShowOverlay] = useState(false);
 
@@ -13,13 +15,15 @@ function Room() {
 
     setTimeout(() => {
       setIsScheduleExcuting(false);
+      currentMonth.moveToNextMonth();
     }, 1000);
   };
 
   return (
     <>
       <Background className="container">
-        <Content>
+        <Content style={{ border: "3px solid purple" }}>
+          <Status />
           {/* todo: overlay 따로 컴포넌트 분리 */}
           {showOverlay && (
             <Overlay onClick={() => setShowOverlay(false)}>
@@ -36,7 +40,7 @@ function Room() {
             </Overlay>
           )}
 
-          {isScheduleExcuting && <Scheduling />}
+          {isScheduleExcuting && <ScheduleExecutionProgress />}
         </Content>
         <ButtonContainer>
           <button
@@ -55,19 +59,16 @@ function Room() {
 }
 
 const Background = styled.div`
+  position: relative;
   display: flex;
-  justify-content: center;
   align-items: center;
+  justify-content: center;
   width: 100%;
   height: 100%;
 
   background-image: url("/images/home.png");
   background-size: cover;
   background-position: center;
-
-  .container {
-    position: relative;
-  }
 `;
 
 const Overlay = styled.div`
@@ -86,14 +87,15 @@ const Overlay = styled.div`
 const OverlayContent = styled.div``;
 
 const Content = styled.div`
+  //  todo : 임시 스타일. 추후 수정
   width: 50%;
   height: 50%;
 `;
 
 const ButtonContainer = styled.div`
   position: absolute;
-  bottom: 100px;
-  right: 300px;
+  bottom: 50px;
+  right: 100px;
   button {
     display: block;
   }

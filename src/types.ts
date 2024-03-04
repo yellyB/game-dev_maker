@@ -6,8 +6,18 @@ export interface Schedule<T extends ScheduleCategory> {
   name: string;
   price?: T extends "study" | "rest" ? number : never;
   income?: T extends "work" ? number : never;
-  codingSkillScore: number;
-  socialSkillsScore: number;
-  stressScore: number;
-  turtleNeckScore: number;
+  codingSkillPoint: number;
+  socialSkillPoint: number;
+  stressPoint: number;
+  turtleNeckPoint: number;
+}
+
+export interface Status {
+  name: string;
+  money: number;
+  codingSkillPoint: number;
+  socialSkillPoint: number;
+  stressPoint: number;
+  turtleNeckPoint: number;
+  maxPoint: number;
 }

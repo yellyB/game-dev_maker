@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-function Scheduling() {
+function ScheduleExecutionProgress() {
   return <Container>스케줄 실행 중...</Container>;
 }
 
@@ -10,4 +10,4 @@ const Container = styled.div`
   border: 1px solid green;
 `;
 
-export default Scheduling;
+export default ScheduleExecutionProgress;

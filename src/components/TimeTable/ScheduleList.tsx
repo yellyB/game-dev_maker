@@ -1,6 +1,6 @@
 import { useState } from "react";
 import styled from "styled-components";
-import { schedules } from "../../datas";
+import { schedules } from "../../datas/schedules";
 
 function ScheduleList() {
   return (
