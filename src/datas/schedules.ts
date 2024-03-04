@@ -1,10 +1,10 @@
-import { Schedule, ScheduleCategory } from "../types";
+import { Schedule, ScheduleCategory, ScheduleGroup } from "../types";
 
 const studySchedules: Schedule<"study">[] = [
   {
-    index: 0,
+    key: 0,
     category: "study",
-    name: "코딩학원",
+    name: "코딩 학원",
     price: 100000,
     codingSkillPoint: 10,
     socialSkillPoint: 10,
@@ -12,7 +12,7 @@ const studySchedules: Schedule<"study">[] = [
     turtleNeckPoint: 10,
   },
   {
-    index: 1,
+    key: 1,
     category: "study",
     name: "강의",
     price: 50000,
@@ -22,9 +22,9 @@ const studySchedules: Schedule<"study">[] = [
     turtleNeckPoint: 7,
   },
   {
-    index: 2,
+    key: 2,
     category: "study",
-    name: "개발서적",
+    name: "개발 서적",
     price: 30000,
     codingSkillPoint: 5,
     socialSkillPoint: 0,
@@ -32,7 +32,7 @@ const studySchedules: Schedule<"study">[] = [
     turtleNeckPoint: 3,
   },
   {
-    index: 3,
+    key: 3,
     category: "study",
     name: "스터디",
     price: 0,
@@ -45,7 +45,7 @@ const studySchedules: Schedule<"study">[] = [
 
 const workSchedules: Schedule<"work">[] = [
   {
-    index: 4,
+    key: 4,
     category: "work",
     name: "치킨집 서빙",
     income: 100000,
@@ -55,9 +55,9 @@ const workSchedules: Schedule<"work">[] = [
     turtleNeckPoint: 0,
   },
   {
-    index: 5,
+    key: 5,
     category: "work",
-    name: "코인투자",
+    name: "코인 투자",
     income: Math.floor(Math.random() * 600000) - 300000, // todo: 우선 여기에 정의해뒀는데, 실제로는 실행할때마다 다시 랜덤하게 가져와야함
     codingSkillPoint: 1,
     socialSkillPoint: -5,
@@ -68,7 +68,7 @@ const workSchedules: Schedule<"work">[] = [
 
 const restSchedules: Schedule<"rest">[] = [
   {
-    index: 6,
+    key: 6,
     category: "rest",
     name: "운동",
     price: 30000,
@@ -78,7 +78,7 @@ const restSchedules: Schedule<"rest">[] = [
     turtleNeckPoint: -10,
   },
   {
-    index: 7,
+    key: 7,
     category: "rest",
     name: "게임(젤리의 전설: 야생마의 숨결)",
     price: 0,
@@ -89,8 +89,40 @@ const restSchedules: Schedule<"rest">[] = [
   },
 ];
 
-export const schedules: Schedule<ScheduleCategory>[] = [
-  ...studySchedules,
-  ...workSchedules,
-  ...restSchedules,
+export const schedules: ScheduleGroup<ScheduleCategory>[] = [
+  { category: "study", categoryName: "학습", schedules: [...studySchedules] },
+  { category: "work", categoryName: "알바", schedules: [...workSchedules] },
+  { category: "rest", categoryName: "휴식", schedules: [...restSchedules] },
 ];
+
+// todo: 이름 다시 고민
+function selectedSchedule() {
+  let schedule: Schedule[] = [];
+
+  function get() {
+    return schedule;
+  }
+
+  function set(newValue: Schedule) {
+    schedule = [...schedule, newValue];
+    return schedule;
+  }
+
+  function slice(value: Schedule) {
+    schedule = schedule.slice(0, schedule.length - 1);
+    return schedule;
+  }
+
+  function clear() {
+    schedule = [];
+  }
+
+  return {
+    get,
+    set,
+    slice,
+    clear,
+  };
+}
+
+export const schedule = selectedSchedule();

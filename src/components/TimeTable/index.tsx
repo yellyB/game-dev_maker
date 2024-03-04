@@ -3,15 +3,9 @@ import styled from "styled-components";
 import Calendar from "./Calendar";
 import ScheduleList from "./ScheduleList";
 
-function TimeTable({
-  isOpen,
-  onClose,
-}: {
-  isOpen: boolean;
-  onClose: () => void;
-}) {
+function TimeTable({ open, onClose }: { open: boolean; onClose: () => void }) {
   return (
-    <Container isOpen={isOpen}>
+    <Container open={open}>
       <Header>
         <button onClick={onClose}>close</button>
       </Header>
@@ -23,8 +17,8 @@ function TimeTable({
   );
 }
 
-const Container = styled.div<{ isOpen: boolean }>`
-  display: ${({ isOpen }) => (isOpen ? "display" : "none")};
+const Container = styled.div<{ open: boolean }>`
+  display: ${({ open }) => (open ? "display" : "none")};
   // position: absolute;
   // top: 100px;
   // width: 100%;

@@ -27,7 +27,7 @@ function Room() {
           <Status />
           <Overlay isShow={showOverlay} onClose={() => setShowOverlay(false)}>
             <TimeTable
-              isOpen={isTimeTableOpen}
+              open={isTimeTableOpen}
               onClose={() => setIsTimeTableOpen(false)}
             />
           </Overlay>

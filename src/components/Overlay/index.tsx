@@ -8,7 +8,21 @@ interface Props {
 }
 
 function Overlay({ isShow, onClose, children }: Props) {
-  return <>{isShow && <Container onClick={onClose}>{children}</Container>}</>;
+  return (
+    <>
+      {isShow && (
+        <Container onClick={onClose}>
+          <div
+            onClick={(e: React.MouseEvent<HTMLDivElement>) =>
+              e.stopPropagation()
+            }
+          >
+            {children}
+          </div>
+        </Container>
+      )}
+    </>
+  );
 }
 
 const Container = styled.div`
@@ -23,7 +37,5 @@ const Container = styled.div`
   align-items: center;
   justify-content: center;
 `;
-
-const OverlayContent = styled.div``;
 
 export default Overlay;
