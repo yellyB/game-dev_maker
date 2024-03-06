@@ -1,12 +1,22 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import styled from "styled-components";
 import { currentMonth } from "../../datas/userData";
+import useSchedule from "../../hooks/useSchedule";
 
-function Calendar() {
+export default function ScheduleTable() {
+  const [schedule, setSchedule] = useSchedule();
+
+  useEffect(() => {
+    console.log(schedule);
+  }, [schedule]);
+
   return (
     <Container>
       <h2>{currentMonth.getMonth()}월 스케줄</h2>
       <Table>
+        {schedule.map((val) => (
+          <>{val.category}</>
+        ))}
         {Array.from({ length: 4 }, (_, index) => index + 1).map((week) => (
           <Row key={week}>
             <Cell>{week}주</Cell>
@@ -46,5 +56,3 @@ const Divider = styled.div`
   background-color: lightgray;
   height: 100%;
 `;
-
-export default Calendar;

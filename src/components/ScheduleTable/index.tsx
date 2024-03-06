@@ -1,16 +1,22 @@
 import { useState } from "react";
 import styled from "styled-components";
-import Calendar from "./Calendar";
+import SelectedSchedule from "./SelectedSchedule";
 import ScheduleList from "./ScheduleList";
 
-function TimeTable({ open, onClose }: { open: boolean; onClose: () => void }) {
+export default function TimeTable({
+  open,
+  onClose,
+}: {
+  open: boolean;
+  onClose: () => void;
+}) {
   return (
     <Container open={open}>
       <Header>
         <button onClick={onClose}>close</button>
       </Header>
       <Content>
-        <Calendar />
+        <SelectedSchedule />
         <ScheduleList />
       </Content>
     </Container>
@@ -38,5 +44,3 @@ const Content = styled.div`
   display: flex;
   flex-direction: row;
 `;
-
-export default TimeTable;

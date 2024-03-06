@@ -2,7 +2,7 @@ import styled from "styled-components";
 import { status, currentMonth } from "../datas/userData";
 import { comma } from "../utils";
 
-function Status() {
+export default function Status() {
   return (
     <Container>
       <Row>진행중인 월: {currentMonth.getMonth()}월</Row>
@@ -33,5 +33,3 @@ const Container = styled.div`
 `;
 
 const Row = styled.div``;
-
-export default Status;

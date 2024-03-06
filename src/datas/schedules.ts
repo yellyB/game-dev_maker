@@ -94,35 +94,3 @@ export const schedules: ScheduleGroup<ScheduleCategory>[] = [
   { category: "work", categoryName: "알바", schedules: [...workSchedules] },
   { category: "rest", categoryName: "휴식", schedules: [...restSchedules] },
 ];
-
-// todo: 이름 다시 고민
-function selectedSchedule() {
-  let schedule: Schedule[] = [];
-
-  function get() {
-    return schedule;
-  }
-
-  function set(newValue: Schedule) {
-    schedule = [...schedule, newValue];
-    return schedule;
-  }
-
-  function slice(value: Schedule) {
-    schedule = schedule.slice(0, schedule.length - 1);
-    return schedule;
-  }
-
-  function clear() {
-    schedule = [];
-  }
-
-  return {
-    get,
-    set,
-    slice,
-    clear,
-  };
-}
-
-export const schedule = selectedSchedule();

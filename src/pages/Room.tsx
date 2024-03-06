@@ -3,10 +3,10 @@ import styled from "styled-components";
 import Overlay from "../components/Overlay";
 import ScheduleExecutionProgress from "../components/ScheduleExecutionProgress";
 import Status from "../components/Status";
-import TimeTable from "../components/TimeTable";
+import ScheduleTable from "../components/ScheduleTable";
 import { currentMonth } from "../datas/userData";
 
-function Room() {
+export default function Room() {
   const [isTimeTableOpen, setIsTimeTableOpen] = useState(false);
   const [isScheduleExcuting, setIsScheduleExcuting] = useState(false);
   const [showOverlay, setShowOverlay] = useState(false);
@@ -26,7 +26,7 @@ function Room() {
         <Content style={{ border: "3px solid purple" }}>
           <Status />
           <Overlay isShow={showOverlay} onClose={() => setShowOverlay(false)}>
-            <TimeTable
+            <ScheduleTable
               open={isTimeTableOpen}
               onClose={() => setIsTimeTableOpen(false)}
             />
@@ -63,21 +63,6 @@ const Background = styled.div`
   background-position: center;
 `;
 
-// const Overlay = styled.div`
-//   position: fixed;
-//   top: 0;
-//   left: 0;
-//   width: 100%;
-//   height: 100%;
-//   background-color: rgba(0, 0, 0, 0.5); /* 어두운 배경 색상과 투명도 조절 */
-//   z-index: 999; /* 다른 요소 위에 오도록 설정 */
-//   display: flex;
-//   align-items: center;
-//   justify-content: center;
-// `;
-
-// const OverlayContent = styled.div``;
-
 const Content = styled.div`
   //  todo : 임시 스타일. 추후 수정
   width: 50%;
@@ -92,5 +77,3 @@ const ButtonContainer = styled.div`
     display: block;
   }
 `;
-
-export default Room;

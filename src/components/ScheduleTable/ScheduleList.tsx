@@ -1,16 +1,18 @@
 import { useEffect, useState } from "react";
 import styled from "styled-components";
-import { schedule, schedules } from "../../datas/schedules";
+import { schedules } from "../../datas/schedules";
+import useSchedule from "../../hooks/useSchedule";
 import { Schedule } from "../../types";
 
-function ScheduleList() {
+export default function ScheduleList() {
+  const [schedule, setSchedule] = useSchedule();
+
   const handleScheduleOnClick = (selectedSchedule: Schedule) => {
-    console.log(selectedSchedule);
-    schedule.set(selectedSchedule);
+    setSchedule(selectedSchedule);
   };
 
   useEffect(() => {
-    console.log(schedule.get());
+    console.log(schedule);
   }, [schedule]);
 
   return (
@@ -59,5 +61,3 @@ const Item = styled.div`
     color: white;
   }
 `;
-
-export default ScheduleList;
