@@ -1,19 +1,15 @@
 import { useEffect, useState } from "react";
 import styled from "styled-components";
+import { useScheduleContext } from "../../context/schedule.context";
 import { schedules } from "../../datas/schedules";
-import useSchedule from "../../hooks/useSchedule";
 import { Schedule } from "../../types";
 
 export default function ScheduleList() {
-  const [schedule, setSchedule] = useSchedule();
+  const { data: schedule, set: setSchedule } = useScheduleContext();
 
   const handleScheduleOnClick = (selectedSchedule: Schedule) => {
     setSchedule(selectedSchedule);
   };
-
-  useEffect(() => {
-    console.log(schedule);
-  }, [schedule]);
 
   return (
     <Container>
