@@ -5,19 +5,23 @@ import ScheduleExecutionProgress from "../components/ScheduleExecutionProgress";
 import Status from "../components/Status";
 import ScheduleTable from "../components/ScheduleTable";
 import { currentMonth } from "../datas/userData";
+import { useScheduleContext } from "../context/schedule.context";
 
 export default function Room() {
+  const { data: schedules, set, pop, clear } = useScheduleContext();
+
   const [isTimeTableOpen, setIsTimeTableOpen] = useState(false);
   const [isScheduleExcuting, setIsScheduleExcuting] = useState(false);
   const [showOverlay, setShowOverlay] = useState(false);
 
   const handleExuceteOnClick = () => {
     setIsScheduleExcuting(true);
+  };
 
-    setTimeout(() => {
-      setIsScheduleExcuting(false);
-      currentMonth.moveToNextMonth();
-    }, 1000);
+  const handleOnEnd = () => {
+    setIsScheduleExcuting(false);
+    currentMonth.moveToNextMonth();
+    clear();
   };
 
   return (
@@ -32,7 +36,9 @@ export default function Room() {
             />
           </Overlay>
 
-          {isScheduleExcuting && <ScheduleExecutionProgress />}
+          {isScheduleExcuting && (
+            <ScheduleExecutionProgress onEnd={handleOnEnd} />
+          )}
         </Content>
         <ButtonContainer>
           <button
@@ -40,10 +46,16 @@ export default function Room() {
               setIsTimeTableOpen(true);
               setShowOverlay(true);
             }}
+            disabled={isScheduleExcuting}
           >
             timetable open
           </button>
-          <button onClick={handleExuceteOnClick}>execute</button>
+          <button
+            onClick={handleExuceteOnClick}
+            disabled={schedules.length !== 4 || isScheduleExcuting}
+          >
+            execute
+          </button>
         </ButtonContainer>
       </Background>
     </>

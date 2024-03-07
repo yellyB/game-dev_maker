@@ -1,12 +1,8 @@
 import React, { createContext, useContext, useState } from "react";
-import { Schedule } from "../types";
+import { Schedule, SelectedSchedule } from "../types";
 
 interface Props {
   children: React.ReactNode;
-}
-
-interface SelectedSchedule extends Schedule {
-  index: number;
 }
 
 const ScheduleContext = createContext<{

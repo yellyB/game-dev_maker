@@ -28,3 +28,7 @@ export interface ScheduleGroup<T extends ScheduleCategory> {
   categoryName: ScheduleCategoryName;
   schedules: Schedule<T>[];
 }
+
+export interface SelectedSchedule extends Schedule {
+  index: number;
+}
