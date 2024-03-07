@@ -2,15 +2,15 @@ import React from "react";
 import ReactDOM from "react-dom/client";
 import "./index.css";
 import App from "./App";
-import { ScheduleProvider } from "./context/schedule.context";
+import { StateProvider } from "./context/status.context";
 
 const root = ReactDOM.createRoot(
   document.getElementById("root") as HTMLElement
 );
 root.render(
   <React.StrictMode>
-    <ScheduleProvider>
+    <StateProvider>
       <App />
-    </ScheduleProvider>
+    </StateProvider>
   </React.StrictMode>
 );

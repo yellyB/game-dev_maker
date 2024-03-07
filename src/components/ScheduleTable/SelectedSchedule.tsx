@@ -1,10 +1,10 @@
 import { useEffect, useState } from "react";
 import styled from "styled-components";
-import { useScheduleContext } from "../../context/schedule.context";
+import { useSchedulesContext } from "../../context/schedules.context";
 import { currentMonth } from "../../datas/userData";
 
 export default function ScheduleTable() {
-  const { data: schedules, set, pop, clear } = useScheduleContext();
+  const { selectedSchedules, set, pop, clear } = useSchedulesContext();
 
   return (
     <Container>
@@ -14,8 +14,8 @@ export default function ScheduleTable() {
           <Row key={week}>
             <Label>{week}주</Label>
             <Divider />
-            {typeof schedules[index] !== "undefined" && (
-              <Cell className="value">{schedules[index].name}</Cell>
+            {typeof selectedSchedules[index] !== "undefined" && (
+              <Cell className="value">{selectedSchedules[index].name}</Cell>
             )}
           </Row>
         ))}
@@ -41,13 +41,13 @@ const Row = styled.div`
 `;
 
 const Cell = styled.div`
-  padding: 10px;
+  padding: 10px 18px;
   display: flex;
   justify-content: center;
 `;
 
 const Label = styled(Cell)`
-  width: 20%;
+  width: 16%;
 `;
 
 const Divider = styled.div`

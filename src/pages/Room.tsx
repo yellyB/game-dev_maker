@@ -2,13 +2,13 @@ import { useState } from "react";
 import styled from "styled-components";
 import Overlay from "../components/Overlay";
 import ScheduleExecutionProgress from "../components/ScheduleExecutionProgress";
-import Status from "../components/Status";
+import GameState from "../components/GameState";
 import ScheduleTable from "../components/ScheduleTable";
 import { currentMonth } from "../datas/userData";
-import { useScheduleContext } from "../context/schedule.context";
+import { useSchedulesContext } from "../context/schedules.context";
 
 export default function Room() {
-  const { data: schedules, set, pop, clear } = useScheduleContext();
+  const { selectedSchedules, set, pop, clear } = useSchedulesContext();
 
   const [isTimeTableOpen, setIsTimeTableOpen] = useState(false);
   const [isScheduleExcuting, setIsScheduleExcuting] = useState(false);
@@ -28,7 +28,7 @@ export default function Room() {
     <>
       <Background className="container">
         <Content style={{ border: "3px solid purple" }}>
-          <Status />
+          <GameState />
           <Overlay isShow={showOverlay} onClose={() => setShowOverlay(false)}>
             <ScheduleTable
               open={isTimeTableOpen}
@@ -52,7 +52,7 @@ export default function Room() {
           </button>
           <button
             onClick={handleExuceteOnClick}
-            disabled={schedules.length !== 4 || isScheduleExcuting}
+            disabled={selectedSchedules.length !== 4 || isScheduleExcuting}
           >
             execute
           </button>

@@ -1,11 +1,12 @@
 import { useEffect, useState } from "react";
 import styled from "styled-components";
-import { useScheduleContext } from "../../context/schedule.context";
+import { useSchedulesContext } from "../../context/schedules.context";
 import { schedules } from "../../datas/schedules";
 import { Schedule } from "../../types";
+import { comma } from "../../utils";
 
 export default function ScheduleList() {
-  const { data: schedule, set: setSchedule } = useScheduleContext();
+  const { set: setSchedule } = useSchedulesContext();
 
   const handleScheduleOnClick = (selectedSchedule: Schedule) => {
     setSchedule(selectedSchedule);
@@ -22,7 +23,12 @@ export default function ScheduleList() {
               key={schedule.key}
               onClick={() => handleScheduleOnClick(schedule)}
             >
-              {schedule.name}
+              <Row>{schedule.name}</Row>
+              <SubRow>
+                {schedule.name === "코인 투자"
+                  ? "알 수 없음"
+                  : `${comma(schedule.money)} 원`}
+              </SubRow>
             </Item>
           ))}
         </Group>
@@ -32,6 +38,7 @@ export default function ScheduleList() {
 }
 
 const Container = styled.div`
+  width: 250px;
   border: 1px solid pink;
 `;
 
@@ -44,10 +51,14 @@ const GroupName = styled.div`
   font-weight: bold;
 `;
 const Item = styled.div`
+  display: flex;
+  // flex-direction: column;
+  // gap: 2px;
   border: 1px solid lightgray;
   border-radius: 6px;
   margin: 2px 0;
-  padding: 10px 12px;
+  padding: 10px 18px;
+  flex-gap: 4px;
 
   &:hover {
     background-color: lightblue;
@@ -56,4 +67,13 @@ const Item = styled.div`
     background-color: black;
     color: white;
   }
+`;
+
+const Row = styled.div`
+  width: 60%;
+  font-weight: bold;
+`;
+const SubRow = styled.div`
+  font-size: 14px;
+  color: red;
 `;

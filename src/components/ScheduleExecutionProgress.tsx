@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import styled from "styled-components";
-import { useScheduleContext } from "../context/schedule.context";
+import { useSchedulesContext } from "../context/schedules.context";
+import { useStateContext } from "../context/status.context";
 import { SelectedSchedule } from "../types";
 
 interface Props {
@@ -8,28 +9,45 @@ interface Props {
 }
 
 export default function ScheduleExecutionProgress({ onEnd }: Props) {
-  const { data: schedules, set, pop, clear } = useScheduleContext();
+  const { selectedSchedules, set, pop, clear } = useSchedulesContext();
+  const { state, update } = useStateContext();
 
   const [index, setIndex] = useState(0);
   const [runningSchedule, setRunningSchedule] = useState<SelectedSchedule>(
-    schedules[0]
+    selectedSchedules[0]
   );
 
   useEffect(() => {
-    if (!schedules) return;
+    if (!selectedSchedules) return;
 
     const intervalId = setInterval(() => {
-      if (index < schedules.length - 1) {
+      if (index < selectedSchedules.length - 1) {
+        const currSchedule = selectedSchedules[index];
+        update({
+          money:
+            state.money +
+            (currSchedule.name === "코인 투자"
+              ? Math.floor(Math.random() * 600000) - 300000
+              : currSchedule.money),
+          codingSkillPoint:
+            state.codingSkillPoint + currSchedule.codingSkillPoint,
+          socialSkillPoint:
+            state.socialSkillPoint + currSchedule.socialSkillPoint,
+          stressPoint: state.stressPoint + currSchedule.stressPoint,
+          turtleNeckPoint: state.turtleNeckPoint + currSchedule.turtleNeckPoint,
+        });
+
         setIndex((prevIndex) => prevIndex + 1);
-        setRunningSchedule(schedules[index + 1]);
+        setRunningSchedule(selectedSchedules[index + 1]);
       } else {
         clearInterval(intervalId);
         onEnd();
+        // todo: 스케줄 종료된 후 한달간 어떤 값이 변화했는지 알려주는 창
       }
-    }, 1000); // 일단 실행시간 1초로 설정
+    }, 1000);
 
     return () => clearInterval(intervalId);
-  }, [index, schedules]);
+  }, [index, selectedSchedules]);
 
   return (
     <>

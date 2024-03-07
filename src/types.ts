@@ -5,15 +5,14 @@ export interface Schedule<T extends ScheduleCategory = ScheduleCategory> {
   key: number;
   category: T;
   name: string;
-  price?: T extends "study" | "rest" ? number : never;
-  income?: T extends "work" ? number : never;
+  money: number;
   codingSkillPoint: number;
   socialSkillPoint: number;
   stressPoint: number;
   turtleNeckPoint: number;
 }
 
-export interface Status {
+export interface State {
   name: string;
   money: number;
   codingSkillPoint: number;
