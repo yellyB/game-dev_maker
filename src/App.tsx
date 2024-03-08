@@ -1,12 +1,15 @@
 import styled from "styled-components";
 import "./App.css";
-import Game from "./Game";
+import { GameProvider } from "./context/game.context";
+import Game from "./pages/Game";
 
 function App() {
   return (
     <Screen>
       <View>
-        <Game />
+        <GameProvider>
+          <Game />
+        </GameProvider>
       </View>
     </Screen>
   );

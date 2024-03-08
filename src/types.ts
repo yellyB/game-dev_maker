@@ -31,3 +31,5 @@ export interface ScheduleGroup<T extends ScheduleCategory> {
 export interface SelectedSchedule extends Schedule {
   index: number;
 }
+
+export type GameState = "init_setting" | "playing" | "end";

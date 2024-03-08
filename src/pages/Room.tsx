@@ -6,8 +6,11 @@ import GameState from "../components/GameState";
 import ScheduleTable from "../components/ScheduleTable";
 import { currentMonth } from "../datas/userData";
 import { useSchedulesContext } from "../context/schedules.context";
+import { END_MONTH } from "../datas/staticData";
+import { useGameContext } from "../context/game.context";
 
 export default function Room() {
+  const { gameState, update } = useGameContext();
   const { selectedSchedules, set, pop, clear } = useSchedulesContext();
 
   const [isTimeTableOpen, setIsTimeTableOpen] = useState(false);
@@ -21,25 +24,28 @@ export default function Room() {
   const handleOnEnd = () => {
     setIsScheduleExcuting(false);
     currentMonth.moveToNextMonth();
+
+    if (currentMonth.getMonth() === END_MONTH) {
+      update("end");
+    }
+
     clear();
   };
 
   return (
     <>
       <Background className="container">
-        <Content style={{ border: "3px solid purple" }}>
-          <GameState />
-          <Overlay isShow={showOverlay} onClose={() => setShowOverlay(false)}>
-            <ScheduleTable
-              open={isTimeTableOpen}
-              onClose={() => setIsTimeTableOpen(false)}
-            />
-          </Overlay>
+        <GameState />
+        <Overlay isShow={showOverlay} onClose={() => setShowOverlay(false)}>
+          <ScheduleTable
+            open={isTimeTableOpen}
+            onClose={() => setIsTimeTableOpen(false)}
+          />
+        </Overlay>
 
-          {isScheduleExcuting && (
-            <ScheduleExecutionProgress onEnd={handleOnEnd} />
-          )}
-        </Content>
+        {isScheduleExcuting && (
+          <ScheduleExecutionProgress onEnd={handleOnEnd} />
+        )}
         <ButtonContainer>
           <button
             onClick={() => {
@@ -63,22 +69,15 @@ export default function Room() {
 }
 
 const Background = styled.div`
-  position: relative;
+  width: 100%;
+  height: 100%;
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 100%;
-  height: 100%;
 
   background-image: url("/images/home.png");
   background-size: cover;
   background-position: center;
-`;
-
-const Content = styled.div`
-  //  todo : 임시 스타일. 추후 수정
-  width: 50%;
-  height: 50%;
 `;
 
 const ButtonContainer = styled.div`

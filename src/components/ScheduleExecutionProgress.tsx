@@ -1,7 +1,8 @@
 import { useEffect, useState } from "react";
 import styled from "styled-components";
 import { useSchedulesContext } from "../context/schedules.context";
-import { useStateContext } from "../context/status.context";
+import { useStateContext } from "../context/state.context";
+import { SCHEDULE_EXECUTING_TIME } from "../datas/staticData";
 import { SelectedSchedule } from "../types";
 
 interface Props {
@@ -44,7 +45,7 @@ export default function ScheduleExecutionProgress({ onEnd }: Props) {
         onEnd();
         // todo: 스케줄 종료된 후 한달간 어떤 값이 변화했는지 알려주는 창
       }
-    }, 1000);
+    }, SCHEDULE_EXECUTING_TIME);
 
     return () => clearInterval(intervalId);
   }, [index, selectedSchedules]);
@@ -59,7 +60,7 @@ export default function ScheduleExecutionProgress({ onEnd }: Props) {
 }
 
 const Container = styled.div`
-  width: 100%;
-  height: 100%;
-  border: 1px solid green;
+  width: 50%;
+  height: 50%;
+  border: 3px solid green;
 `;
