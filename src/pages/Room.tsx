@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useMemo, useState } from "react";
 import styled from "styled-components";
 import Overlay from "../components/Overlay";
 import ScheduleExecutionProgress from "../components/ScheduleExecutionProgress";
@@ -8,10 +8,14 @@ import { currentMonth } from "../datas/userData";
 import { useSchedulesContext } from "../context/schedules.context";
 import { END_MONTH } from "../datas/staticData";
 import { useGameContext } from "../context/game.context";
+import { useEndingType } from "../hooks/useEndingType";
+import { useStateContext } from "../context/state.context";
 
 export default function Room() {
-  const { gameState, update } = useGameContext();
+  const { gameState, update: updateGameState } = useGameContext();
   const { selectedSchedules, set, pop, clear } = useSchedulesContext();
+  const { state } = useStateContext();
+  const [ending, isTurtleEnding] = useEndingType();
 
   const [isTimeTableOpen, setIsTimeTableOpen] = useState(false);
   const [isScheduleExcuting, setIsScheduleExcuting] = useState(false);
@@ -23,48 +27,50 @@ export default function Room() {
 
   const handleOnEnd = () => {
     setIsScheduleExcuting(false);
+
+    if (isTurtleEnding) {
+      updateGameState("end");
+      return;
+    }
+
     currentMonth.moveToNextMonth();
 
     if (currentMonth.getMonth() === END_MONTH) {
-      update("end");
+      updateGameState("end");
     }
 
     clear();
   };
 
   return (
-    <>
-      <Background className="container">
-        <GameState />
-        <Overlay isShow={showOverlay} onClose={() => setShowOverlay(false)}>
-          <ScheduleTable
-            open={isTimeTableOpen}
-            onClose={() => setIsTimeTableOpen(false)}
-          />
-        </Overlay>
+    <Background className="container">
+      <GameState />
+      <Overlay isShow={showOverlay} onClose={() => setShowOverlay(false)}>
+        <ScheduleTable
+          open={isTimeTableOpen}
+          onClose={() => setIsTimeTableOpen(false)}
+        />
+      </Overlay>
 
-        {isScheduleExcuting && (
-          <ScheduleExecutionProgress onEnd={handleOnEnd} />
-        )}
-        <ButtonContainer>
-          <button
-            onClick={() => {
-              setIsTimeTableOpen(true);
-              setShowOverlay(true);
-            }}
-            disabled={isScheduleExcuting}
-          >
-            timetable open
-          </button>
-          <button
-            onClick={handleExuceteOnClick}
-            disabled={selectedSchedules.length !== 4 || isScheduleExcuting}
-          >
-            execute
-          </button>
-        </ButtonContainer>
-      </Background>
-    </>
+      {isScheduleExcuting && <ScheduleExecutionProgress onEnd={handleOnEnd} />}
+      <ButtonContainer>
+        <button
+          onClick={() => {
+            setIsTimeTableOpen(true);
+            setShowOverlay(true);
+          }}
+          disabled={isScheduleExcuting}
+        >
+          timetable open
+        </button>
+        <button
+          onClick={handleExuceteOnClick}
+          disabled={selectedSchedules.length !== 4 || isScheduleExcuting}
+        >
+          execute
+        </button>
+      </ButtonContainer>
+    </Background>
   );
 }
 

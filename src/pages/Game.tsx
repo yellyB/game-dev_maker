@@ -1,6 +1,7 @@
 import styled from "styled-components";
 import { useGameContext } from "../context/game.context";
 import { SchedulesProvider } from "../context/schedules.context";
+import Ending from "./Ending";
 import Room from "./Room";
 
 export default function Game() {
@@ -13,9 +14,7 @@ export default function Game() {
           <Room />
         </SchedulesProvider>
       )}
-      {gameState === "end" && (
-        <div style={{ border: "10px solid pink" }}>end</div>
-      )}
+      {gameState === "end" && <Ending />}
     </GameView>
   );
 }
