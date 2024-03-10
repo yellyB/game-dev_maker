@@ -1,5 +1,5 @@
 import React, { createContext, useContext, useState } from "react";
-import { State } from "../types";
+import { UserState } from "../types";
 
 interface Props {
   children: React.ReactNode;
@@ -16,16 +16,16 @@ const initState = {
 };
 
 const StateContext = createContext<{
-  state: State;
-  update: <T extends Partial<State>>(paramsToUpdate: T) => void;
+  state: UserState;
+  update: <T extends Partial<UserState>>(paramsToUpdate: T) => void;
 }>({ state: initState, update: () => {} });
 
 export const useStateContext = () => useContext(StateContext);
 
 export const StateProvider = ({ children }: Props) => {
-  const [state, setState] = useState<State>(initState);
+  const [state, setState] = useState<UserState>(initState);
 
-  const update = <T extends Partial<State>>(paramsToUpdate: T) => {
+  const update = <T extends Partial<UserState>>(paramsToUpdate: T) => {
     setState({ ...state, ...paramsToUpdate });
   };
 

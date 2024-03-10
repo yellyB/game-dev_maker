@@ -12,14 +12,13 @@ export interface Schedule<T extends ScheduleCategory = ScheduleCategory> {
   turtleNeckPoint: number;
 }
 
-export interface State {
+export interface UserState {
   name: string;
   money: number;
   codingSkillPoint: number;
   socialSkillPoint: number;
   stressPoint: number;
   turtleNeckPoint: number;
-  maxPoint: number;
 }
 
 export interface ScheduleGroup<T extends ScheduleCategory> {
@@ -33,3 +32,5 @@ export interface SelectedSchedule extends Schedule {
 }
 
 export type GameState = "init_setting" | "playing" | "end";
+
+export type PointOfUserState = Partial<UserState>;

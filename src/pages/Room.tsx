@@ -10,6 +10,7 @@ import { END_MONTH } from "../datas/staticData";
 import { useGameContext } from "../context/game.context";
 import { useEndingType } from "../hooks/useEndingType";
 import { useStateContext } from "../context/state.context";
+import { PointOfUserState } from "../types";
 
 export default function Room() {
   const { gameState, update: updateGameState } = useGameContext();
@@ -20,13 +21,17 @@ export default function Room() {
   const [isTimeTableOpen, setIsTimeTableOpen] = useState(false);
   const [isScheduleExcuting, setIsScheduleExcuting] = useState(false);
   const [showOverlay, setShowOverlay] = useState(false);
+  const [updatedValueOfCurrInterval, setUpdatedValueOfCurrInterval] = useState(
+    {}
+  );
 
   const handleExuceteOnClick = () => {
     setIsScheduleExcuting(true);
   };
 
-  const handleOnEnd = () => {
+  const handleOnEnd = (updatedValueOfCurrInterval: PointOfUserState) => {
     setIsScheduleExcuting(false);
+    setUpdatedValueOfCurrInterval(updatedValueOfCurrInterval);
 
     if (isTurtleEnding) {
       updateGameState("end");
@@ -38,6 +43,9 @@ export default function Room() {
     if (currentMonth.getMonth() === END_MONTH) {
       updateGameState("end");
     }
+
+    // todo: 팝업창으로 띄위기
+    alert(`이번달 실행 결과: ${JSON.stringify(updatedValueOfCurrInterval)}`);
 
     clear();
   };

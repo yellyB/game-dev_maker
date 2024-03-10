@@ -1,5 +1,6 @@
 import styled from "styled-components";
 import { useStateContext } from "../context/state.context";
+import { MAX_POINT } from "../datas/staticData";
 import { currentMonth } from "../datas/userData";
 import { comma } from "../utils";
 
@@ -12,13 +13,13 @@ export default function GameState() {
       <Row>{state.name}의 스탯</Row>
       <Row>소지금: {comma(state.money)}원</Row>
       <Row>
-        개발력: {state.codingSkillPoint}/{state.maxPoint}
+        개발력: {state.codingSkillPoint}/{MAX_POINT}
       </Row>
       <Row>
-        사회성: {state.socialSkillPoint}/{state.maxPoint}
+        사회성: {state.socialSkillPoint}/{MAX_POINT}
       </Row>
       <Row>
-        스트레스: {state.stressPoint}/{state.maxPoint}
+        스트레스: {state.stressPoint}/{MAX_POINT}
       </Row>
     </Container>
   );
