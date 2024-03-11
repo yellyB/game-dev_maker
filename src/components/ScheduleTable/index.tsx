@@ -23,7 +23,7 @@ export default function ScheduleTable({
         <SelectedSchedule />
         <ScheduleList />
       </Content>
-      <ButtonContainer>
+      <ButtonWrapper>
         <Button onClick={clear}>clear</Button>
         <button
           onClick={handleExuceteOnClick}
@@ -31,7 +31,7 @@ export default function ScheduleTable({
         >
           execute
         </button>
-      </ButtonContainer>
+      </ButtonWrapper>
     </Container>
   );
 }
@@ -47,9 +47,11 @@ const Container = styled.div<{ open: boolean }>`
   border: 1px solid blue;
 `;
 
-const ButtonContainer = styled.div`
-  height: 60px;
-  border: 1px solid blue;
+const ButtonWrapper = styled.div`
+  display: flex;
+  gap: 20px;
+  padding: 20px;
+  justify-content: flex-end;
 `;
 const Button = styled.button``;
 

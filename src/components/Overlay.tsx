@@ -1,4 +1,3 @@
-import { useState } from "react";
 import styled from "styled-components";
 
 interface Props {
@@ -7,7 +6,7 @@ interface Props {
   children: React.ReactNode;
 }
 
-function Overlay({ isShow, onClose, children }: Props) {
+export default function Overlay({ isShow, onClose, children }: Props) {
   return (
     <>
       {isShow && (
@@ -37,5 +36,3 @@ const Container = styled.div`
   align-items: center;
   justify-content: center;
 `;
-
-export default Overlay;

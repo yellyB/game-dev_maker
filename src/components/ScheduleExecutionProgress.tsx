@@ -59,6 +59,8 @@ export default function ScheduleExecutionProgress({ onEnd }: Props) {
           ...newValue,
         });
 
+        // todo: 마지막꺼 반영 안되고 있음.
+        // todo: 실시간 값 변경 말고 누적하고 있다가 한번에 값을 변경하기로 해야하나? 고민해보기
         setAccumulatedValue((prevValue) => ({
           money: prevValue.money + thisMoney,
           codingSkillPoint:
