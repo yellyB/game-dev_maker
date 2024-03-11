@@ -4,7 +4,7 @@ import { useSchedulesContext } from "../../context/schedules.context";
 import { currentMonth } from "../../datas/userData";
 
 export default function ScheduleTable() {
-  const { selectedSchedules, set, pop, clear } = useSchedulesContext();
+  const { selectedSchedules } = useSchedulesContext();
 
   return (
     <Container>
@@ -20,7 +20,6 @@ export default function ScheduleTable() {
           </Row>
         ))}
       </Table>
-      <Button onClick={clear}>clear</Button>
     </Container>
   );
 }
@@ -55,5 +54,3 @@ const Divider = styled.div`
   background-color: lightgray;
   height: 100%;
 `;
-
-const Button = styled.button``;

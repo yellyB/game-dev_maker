@@ -2,23 +2,36 @@ import { useState } from "react";
 import styled from "styled-components";
 import SelectedSchedule from "./SelectedSchedule";
 import ScheduleList from "./ScheduleList";
+import { useSchedulesContext } from "../../context/schedules.context";
 
-export default function TimeTable({
+export default function ScheduleTable({
   open,
-  onClose,
+  onExecute,
 }: {
   open: boolean;
-  onClose: () => void;
+  onExecute: () => void;
 }) {
+  const { selectedSchedules, clear } = useSchedulesContext();
+
+  const handleExuceteOnClick = () => {
+    onExecute();
+  };
+
   return (
     <Container open={open}>
-      <Header>
-        <button onClick={onClose}>close</button>
-      </Header>
       <Content>
         <SelectedSchedule />
         <ScheduleList />
       </Content>
+      <ButtonContainer>
+        <Button onClick={clear}>clear</Button>
+        <button
+          onClick={handleExuceteOnClick}
+          disabled={selectedSchedules.length !== 4}
+        >
+          execute
+        </button>
+      </ButtonContainer>
     </Container>
   );
 }
@@ -34,9 +47,11 @@ const Container = styled.div<{ open: boolean }>`
   border: 1px solid blue;
 `;
 
-const Header = styled.div`
+const ButtonContainer = styled.div`
+  height: 60px;
   border: 1px solid blue;
 `;
+const Button = styled.button``;
 
 const Content = styled.div`
   border: 1px solid blue;

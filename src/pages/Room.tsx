@@ -14,7 +14,7 @@ import { PointOfUserState } from "../types";
 
 export default function Room() {
   const { gameState, update: updateGameState } = useGameContext();
-  const { selectedSchedules, set, pop, clear } = useSchedulesContext();
+  const { clear } = useSchedulesContext();
   const { state } = useStateContext();
   const [ending, isTurtleEnding] = useEndingType();
 
@@ -25,7 +25,9 @@ export default function Room() {
     {}
   );
 
-  const handleExuceteOnClick = () => {
+  const handleExecute = () => {
+    setIsTimeTableOpen(false);
+    setShowOverlay(false);
     setIsScheduleExcuting(true);
   };
 
@@ -44,7 +46,9 @@ export default function Room() {
       updateGameState("end");
     }
 
+    // todo: 마지막꺼 반영 안되고 있음.
     // todo: 팝업창으로 띄위기
+    // todo: 실시간 값 변경 말고 누적하고 있다가 한번에 값을 변경하기로 해야하나? 고민해보기
     alert(`이번달 실행 결과: ${JSON.stringify(updatedValueOfCurrInterval)}`);
 
     clear();
@@ -54,10 +58,7 @@ export default function Room() {
     <Background className="container">
       <GameState />
       <Overlay isShow={showOverlay} onClose={() => setShowOverlay(false)}>
-        <ScheduleTable
-          open={isTimeTableOpen}
-          onClose={() => setIsTimeTableOpen(false)}
-        />
+        <ScheduleTable open={isTimeTableOpen} onExecute={handleExecute} />
       </Overlay>
 
       {isScheduleExcuting && <ScheduleExecutionProgress onEnd={handleOnEnd} />}
@@ -70,12 +71,6 @@ export default function Room() {
           disabled={isScheduleExcuting}
         >
           timetable open
-        </button>
-        <button
-          onClick={handleExuceteOnClick}
-          disabled={selectedSchedules.length !== 4 || isScheduleExcuting}
-        >
-          execute
         </button>
       </ButtonContainer>
     </Background>
