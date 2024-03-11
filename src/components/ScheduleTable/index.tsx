@@ -3,6 +3,7 @@ import styled from "styled-components";
 import SelectedSchedule from "./SelectedSchedule";
 import ScheduleList from "./ScheduleList";
 import { useSchedulesContext } from "../../context/schedules.context";
+import Button from "../Button";
 
 export default function ScheduleTable({
   open,
@@ -25,12 +26,12 @@ export default function ScheduleTable({
       </Content>
       <ButtonWrapper>
         <Button onClick={clear}>clear</Button>
-        <button
+        <Button
           onClick={handleExuceteOnClick}
           disabled={selectedSchedules.length !== 4}
         >
           execute
-        </button>
+        </Button>
       </ButtonWrapper>
     </Container>
   );
@@ -53,7 +54,6 @@ const ButtonWrapper = styled.div`
   padding: 20px;
   justify-content: flex-end;
 `;
-const Button = styled.button``;
 
 const Content = styled.div`
   border: 1px solid blue;

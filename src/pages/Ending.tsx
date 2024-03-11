@@ -57,12 +57,3 @@ const Background = styled.div`
 
   border: 10px solid pink;
 `;
-
-const ButtonContainer = styled.div`
-  position: absolute;
-  bottom: 50px;
-  right: 100px;
-  button {
-    display: block;
-  }
-`;

@@ -1,5 +1,7 @@
 import { useEffect } from "react";
 import { styled } from "styled-components";
+import { colors } from "../datas/staticData";
+import Button from "./Button";
 
 interface Props {
   isOpen: boolean;
@@ -35,14 +37,15 @@ export default function Dialog({
         <Title>{title}</Title>
         {children}
         <ButtonWrapper>
-          <ConfirmButton
+          <Button
+            color={colors.green}
             onClick={() => {
               onConfirm();
               onClose();
             }}
           >
             확인
-          </ConfirmButton>
+          </Button>
         </ButtonWrapper>
       </Content>
     </Overlay>
@@ -77,25 +80,4 @@ const ButtonWrapper = styled.div`
   display: flex;
   gap: 20px;
   justify-content: flex-end;
-`;
-
-const Button = styled.button`
-  background-color: #007bff;
-  color: white;
-  border: none;
-  padding: 8px 16px;
-  border-radius: 4px;
-  cursor: pointer;
-`;
-
-const ConfirmButton = styled(Button)`
-  background-color: #28a745;
-`;
-
-const CloseButton = styled.button`
-  background-color: transparent;
-  border: none;
-  cursor: pointer;
-  padding: 0;
-  font-size: 20px;
 `;

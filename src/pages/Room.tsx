@@ -12,6 +12,7 @@ import { useGameContext } from "../context/game.context";
 import { useEndingType } from "../hooks/useEndingType";
 import { PointOfUserState } from "../types";
 import Dialog from "../components/Dialog";
+import Button from "../components/Button";
 
 export default function Room() {
   const { gameState, update: updateGameState } = useGameContext();
@@ -68,7 +69,7 @@ export default function Room() {
           <ScheduleExecutionProgress onEnd={handleOnEnd} />
         )}
         <ButtonContainer>
-          <button
+          <Button
             onClick={() => {
               setIsTimeTableOpen(true);
               setShowOverlay(true);
@@ -76,8 +77,8 @@ export default function Room() {
             disabled={isScheduleExcuting}
           >
             timetable open
-          </button>
-          <button onClick={() => setIsDialogOpen(true)}>다이얼로그 오픈</button>
+          </Button>
+          <Button onClick={() => setIsDialogOpen(true)}>다이얼로그 오픈</Button>
         </ButtonContainer>
       </Background>
       <Dialog
@@ -108,7 +109,4 @@ const ButtonContainer = styled.div`
   position: absolute;
   bottom: 50px;
   right: 100px;
-  button {
-    display: block;
-  }
 `;
