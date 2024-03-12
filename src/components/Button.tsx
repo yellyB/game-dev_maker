@@ -16,5 +16,3 @@ const Button = styled.button`
 `;
 
 export default Button;
-
-// todo: 버튼 공통으로 정리하기

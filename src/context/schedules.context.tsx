@@ -1,5 +1,5 @@
 import React, { createContext, useContext, useState } from "react";
-import { Schedule, SelectedSchedule } from "../types";
+import { Schedule, SelectedSchedule } from "~/types";
 
 interface Props {
   children: React.ReactNode;

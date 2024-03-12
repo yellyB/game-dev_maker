@@ -1,9 +1,9 @@
 import { useEffect, useState } from "react";
 import styled from "styled-components";
+import { PointOfUserState, SelectedSchedule } from "~/types";
 import { useSchedulesContext } from "../context/schedules.context";
 import { useStateContext } from "../context/state.context";
 import { SCHEDULE_EXECUTING_TIME } from "../datas/staticData";
-import { PointOfUserState, SelectedSchedule } from "../types";
 
 interface Props {
   onEnd: (updatedValueOfCurrInterval: PointOfUserState) => void;

@@ -2,7 +2,7 @@ import styled from "styled-components";
 import { useStateContext } from "../context/state.context";
 import { MAX_POINT } from "../datas/staticData";
 import { currentMonth } from "../datas/userData";
-import { comma } from "../utils";
+import { comma } from "../common/utils";
 
 export default function GameState() {
   const { state, update } = useStateContext();

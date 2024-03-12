@@ -1,4 +1,4 @@
-import { Schedule, ScheduleCategory, ScheduleGroup } from "../types";
+import { Schedule, ScheduleCategory, ScheduleGroup } from "~/types";
 
 const studySchedules: Schedule<"study">[] = [
   {

@@ -1,16 +1,16 @@
 import { useState } from "react";
 import styled from "styled-components";
+import { PointOfUserState } from "~/types";
+import { currentMonth } from "../datas/userData";
+import { END_MONTH } from "../datas/staticData";
+
 import Overlay from "../components/Overlay";
 import ScheduleExecutionProgress from "../components/ScheduleExecutionProgress";
 import GameState from "../components/GameState";
-
 import ScheduleTable from "../components/ScheduleTable";
-import { currentMonth } from "../datas/userData";
 import { useSchedulesContext } from "../context/schedules.context";
-import { END_MONTH } from "../datas/staticData";
 import { useGameContext } from "../context/game.context";
 import { useEndingType } from "../hooks/useEndingType";
-import { PointOfUserState } from "../types";
 import Dialog from "../components/Dialog";
 import Button from "../components/Button";
 

@@ -1,7 +1,7 @@
 import styled from "styled-components";
 import { useStateContext } from "../context/state.context";
 import { currentMonth } from "../datas/userData";
-import { comma } from "../utils";
+import { comma } from "../common/utils";
 
 export default function EndingAnimation() {
   const { state, update } = useStateContext();
