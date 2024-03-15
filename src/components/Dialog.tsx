@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 import { styled } from "styled-components";
-import { colors } from "../datas/staticData";
+import { colors } from "../static/datas/colors";
 import Button from "./Button";
 
 interface Props {

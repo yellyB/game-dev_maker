@@ -1,6 +1,6 @@
 import { useMemo, useState } from "react";
 import { useStateContext } from "../context/state.context";
-import { TURTLE_ENDING_MINIMUM_POINT } from "../datas/staticData";
+import { TURTLE_ENDING_MINIMUM_POINT } from "../static/datas/constantDatas";
 
 export const useEndingType = () => {
   // todo: 개선이 시급..

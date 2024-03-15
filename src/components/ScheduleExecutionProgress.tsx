@@ -3,7 +3,7 @@ import styled from "styled-components";
 import { PointOfUserState, SelectedSchedule } from "~/types";
 import { useSchedulesContext } from "../context/schedules.context";
 import { useStateContext } from "../context/state.context";
-import { SCHEDULE_EXECUTING_TIME } from "../datas/staticData";
+import { SCHEDULE_EXECUTING_TIME } from "../static/datas/constantDatas";
 
 interface Props {
   onEnd: (updatedValueOfCurrInterval: PointOfUserState) => void;
@@ -83,14 +83,10 @@ export default function ScheduleExecutionProgress({ onEnd }: Props) {
   }, [index, selectedSchedules]);
 
   return (
-    <>
-      {runningSchedule && (
-        <Container>
-          {runningSchedule.name}
-          {!!errorMessage ? errorMessage : "스케줄 실행 중..."}
-        </Container>
-      )}
-    </>
+    <Container>
+      {runningSchedule.name}
+      {!!errorMessage ? errorMessage : "스케줄 실행 중..."}
+    </Container>
   );
 }
 

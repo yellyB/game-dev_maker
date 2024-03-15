@@ -2,7 +2,7 @@ import { useState } from "react";
 import styled from "styled-components";
 import { PointOfUserState } from "~/types";
 import { currentMonth } from "../datas/userData";
-import { END_MONTH } from "../datas/staticData";
+import { END_MONTH } from "../static/datas/constantDatas";
 
 import Overlay from "../components/Overlay";
 import ScheduleExecutionProgress from "../components/ScheduleExecutionProgress";

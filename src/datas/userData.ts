@@ -1,4 +1,4 @@
-import { START_MONTH } from "./staticData";
+import { START_MONTH } from "../static/datas/constantDatas";
 
 // todo:  게임 실행에 관련된 데이터 저장하기. 일단은 n월 밖에 없음
 function createProgressData(initialValue: number) {
