@@ -17,20 +17,20 @@ const initState = {
 
 const StateContext = createContext<{
   state: UserState;
-  update: <T extends Partial<UserState>>(paramsToUpdate: T) => void;
-}>({ state: initState, update: () => {} });
+  updatePoints: (paramsToUpdate: Omit<UserState, "name">) => void;
+}>({ state: initState, updatePoints: () => {} });
 
 export const useStateContext = () => useContext(StateContext);
 
 export const StateProvider = ({ children }: Props) => {
   const [state, setState] = useState<UserState>(initState);
 
-  const update = <T extends Partial<UserState>>(paramsToUpdate: T) => {
+  const updatePoints = (paramsToUpdate: Omit<UserState, "name">) => {
     setState({ ...state, ...paramsToUpdate });
   };
 
   return (
-    <StateContext.Provider value={{ state, update }}>
+    <StateContext.Provider value={{ state, updatePoints }}>
       {children}
     </StateContext.Provider>
   );

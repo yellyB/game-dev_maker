@@ -13,6 +13,10 @@ const Button = styled.button`
   &:hover {
     background-color: darken(${(props) => props.color || colors.blue}, 10%);
   }
+  &:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
 `;
 
 export default Button;

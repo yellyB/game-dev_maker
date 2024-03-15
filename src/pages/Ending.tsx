@@ -5,7 +5,7 @@ import { useStateContext } from "../context/state.context";
 import { useEndingType } from "../hooks/useEndingType";
 
 export default function Ending() {
-  const { state, update } = useStateContext();
+  const { state } = useStateContext();
   const [ending, isTurtleEnding] = useEndingType();
 
   type endingTypeCode =

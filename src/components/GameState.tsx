@@ -5,7 +5,7 @@ import { MAX_POINT } from "../datas/constantDatas";
 import { comma } from "../common/utils";
 
 export default function GameState() {
-  const { state, update } = useStateContext();
+  const { state } = useStateContext();
   const { month } = useGameContext();
 
   return (
