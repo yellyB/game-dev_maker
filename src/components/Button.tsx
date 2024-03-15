@@ -1,5 +1,5 @@
 import { styled } from "styled-components";
-import { colors } from "../static/datas/colors";
+import { colors } from "../datas/colors";
 
 const Button = styled.button`
   background-color: ${(props) => props.color || colors.blue};

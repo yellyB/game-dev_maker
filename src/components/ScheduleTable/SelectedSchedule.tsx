@@ -1,14 +1,14 @@
-import { useEffect, useState } from "react";
 import styled from "styled-components";
-import { useSchedulesContext } from "../../context/schedules.context";
-import { currentMonth } from "../../datas/userData";
+import { useSchedulesContext } from "context/schedules.context";
+import { useGameContext } from "context/game.context";
 
 export default function ScheduleTable() {
   const { selectedSchedules } = useSchedulesContext();
+  const { month } = useGameContext();
 
   return (
     <Container>
-      <h2>{currentMonth.getMonth()}월 스케줄</h2>
+      <h2>{month}월 스케줄</h2>
       <Table>
         {Array.from({ length: 4 }, (_, i) => i + 1).map((week, index) => (
           <Row key={week}>

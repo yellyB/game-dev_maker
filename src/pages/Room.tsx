@@ -1,8 +1,7 @@
 import { useState } from "react";
 import styled from "styled-components";
 import { PointOfUserState } from "~/types";
-import { currentMonth } from "../datas/userData";
-import { END_MONTH } from "../static/datas/constantDatas";
+import { END_MONTH } from "datas/constantDatas";
 
 import Overlay from "../components/Overlay";
 import ScheduleExecutionProgress from "../components/ScheduleExecutionProgress";
@@ -15,7 +14,8 @@ import Dialog from "../components/Dialog";
 import Button from "../components/Button";
 
 export default function Room() {
-  const { gameState, update: updateGameState } = useGameContext();
+  const { gameState, updateGameState, month, moveToNextMonth } =
+    useGameContext();
   const { clear } = useSchedulesContext();
   const [ending, isTurtleEnding] = useEndingType();
 
@@ -49,9 +49,9 @@ export default function Room() {
   };
 
   const handleDialogOnConfirm = () => {
-    currentMonth.moveToNextMonth();
+    moveToNextMonth();
 
-    if (currentMonth.getMonth() === END_MONTH) {
+    if (month === END_MONTH) {
       setTimeout(() => {
         updateGameState("end");
       }, 1000);

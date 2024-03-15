@@ -3,7 +3,7 @@ import styled from "styled-components";
 import { PointOfUserState, SelectedSchedule } from "~/types";
 import { useSchedulesContext } from "../context/schedules.context";
 import { useStateContext } from "../context/state.context";
-import { SCHEDULE_EXECUTING_TIME } from "../static/datas/constantDatas";
+import { SCHEDULE_EXECUTING_TIME } from "../datas/constantDatas";
 
 interface Props {
   onEnd: (updatedValueOfCurrInterval: PointOfUserState) => void;

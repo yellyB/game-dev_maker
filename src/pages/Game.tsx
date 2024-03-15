@@ -5,7 +5,7 @@ import Ending from "./Ending";
 import Room from "./Room";
 
 export default function Game() {
-  const { gameState, update } = useGameContext();
+  const { gameState } = useGameContext();
 
   return (
     <GameView>

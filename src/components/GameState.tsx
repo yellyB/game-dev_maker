@@ -1,15 +1,16 @@
 import styled from "styled-components";
 import { useStateContext } from "../context/state.context";
-import { MAX_POINT } from "../static/datas/constantDatas";
-import { currentMonth } from "../datas/userData";
+import { useGameContext } from "context/game.context";
+import { MAX_POINT } from "../datas/constantDatas";
 import { comma } from "../common/utils";
 
 export default function GameState() {
   const { state, update } = useStateContext();
+  const { month } = useGameContext();
 
   return (
     <Container>
-      <Row>진행중인 월: {currentMonth.getMonth()}월</Row>
+      <Row>진행중인 월: {month}월</Row>
       <Row>{state.name}의 스탯</Row>
       <Row>소지금: {comma(state.money)}원</Row>
       <Row>

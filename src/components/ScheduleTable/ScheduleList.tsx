@@ -1,6 +1,6 @@
 import styled from "styled-components";
 import { useSchedulesContext } from "../../context/schedules.context";
-import { schedules } from "../../static/datas/schedules";
+import { schedules } from "../../datas/schedules";
 import { comma } from "../../common/utils";
 import { Schedule } from "~/types";
 
