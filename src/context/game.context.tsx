@@ -1,6 +1,6 @@
 import React, { createContext, useContext, useState } from "react";
 import { START_MONTH } from "../datas/constantDatas";
-import { GameState } from "~/types";
+import { GameState } from "types";
 
 interface Props {
   children: React.ReactNode;

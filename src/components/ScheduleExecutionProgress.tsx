@@ -1,9 +1,10 @@
 import { useEffect, useState } from "react";
 import styled from "styled-components";
-import { PointOfUserState, SelectedSchedule } from "~/types";
+import { PointOfUserState, SelectedSchedule } from "types";
 import { useSchedulesContext } from "../context/schedules.context";
 import { useStateContext } from "../context/state.context";
 import { SCHEDULE_EXECUTING_TIME } from "../datas/constantDatas";
+import ScheduleImages from "./ScheduleImages";
 
 interface Props {
   onEnd: (updatedValueOfCurrInterval: PointOfUserState) => void;
@@ -14,9 +15,9 @@ export default function ScheduleExecutionProgress({ onEnd }: Props) {
   const { state, update } = useStateContext();
 
   const [index, setIndex] = useState(0);
-  const [runningSchedule, setRunningSchedule] = useState<SelectedSchedule>(
-    selectedSchedules[0]
-  );
+
+  const [currRunningSchedule, setCurrRunningSchedule] =
+    useState<SelectedSchedule>(selectedSchedules[0]);
   const [errorMessage, setErrorMessage] = useState("");
   const [accumulatedValue, setAccumulatedValue] = useState({
     money: 0,
@@ -32,7 +33,8 @@ export default function ScheduleExecutionProgress({ onEnd }: Props) {
     const intervalId = setInterval(() => {
       if (index < selectedSchedules.length - 1) {
         setIndex((prevIndex) => prevIndex + 1);
-        setRunningSchedule(selectedSchedules[index + 1]);
+
+        setCurrRunningSchedule(selectedSchedules[index + 1]);
 
         const currSchedule = selectedSchedules[index];
         const futureMoney = state.money + currSchedule.money;
@@ -71,8 +73,6 @@ export default function ScheduleExecutionProgress({ onEnd }: Props) {
           turtleNeckPoint:
             prevValue.turtleNeckPoint + currSchedule.turtleNeckPoint,
         }));
-
-        console.log(newValue, accumulatedValue);
       } else {
         clearInterval(intervalId);
         onEnd(accumulatedValue);
@@ -84,8 +84,12 @@ export default function ScheduleExecutionProgress({ onEnd }: Props) {
 
   return (
     <Container>
-      {runningSchedule.name}
+      {currRunningSchedule.name}
       {!!errorMessage ? errorMessage : "스케줄 실행 중..."}
+      <ScheduleImages
+        key={currRunningSchedule.name}
+        currSchedule={currRunningSchedule}
+      />
     </Container>
   );
 }

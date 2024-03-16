@@ -2,7 +2,7 @@ import styled from "styled-components";
 import { useSchedulesContext } from "../../context/schedules.context";
 import { schedules } from "../../datas/schedules";
 import { comma } from "../../common/utils";
-import { Schedule } from "~/types";
+import { Schedule } from "types";
 
 export default function ScheduleList() {
   const { set: setSchedule } = useSchedulesContext();

@@ -1,6 +1,6 @@
 import { useState } from "react";
 import styled from "styled-components";
-import { PointOfUserState } from "~/types";
+import { PointOfUserState } from "types";
 import { END_MONTH } from "datas/constantDatas";
 
 import Overlay from "../components/Overlay";

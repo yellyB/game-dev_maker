@@ -1,5 +1,5 @@
 import React, { createContext, useContext, useState } from "react";
-import { UserState } from "~/types";
+import { UserState } from "types";
 
 interface Props {
   children: React.ReactNode;
