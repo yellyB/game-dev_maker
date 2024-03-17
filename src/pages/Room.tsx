@@ -23,9 +23,8 @@ export default function Room() {
   const [isTimeTableOpen, setIsTimeTableOpen] = useState(false);
   const [isScheduleExcuting, setIsScheduleExcuting] = useState(false);
   const [showOverlay, setShowOverlay] = useState(false);
-  const [updatedValueOfCurrInterval, setUpdatedValueOfCurrInterval] = useState(
-    {}
-  );
+  const [updatedValueOfCurrInterval, setUpdatedValueOfCurrInterval] =
+    useState<PointOfUserState>({});
 
   const handleExecute = () => {
     setIsTimeTableOpen(false);
@@ -76,9 +75,8 @@ export default function Room() {
             }}
             disabled={isScheduleExcuting}
           >
-            timetable open
+            스케줄 짜기
           </Button>
-          <Button onClick={() => setIsDialogOpen(true)}>다이얼로그 오픈</Button>
         </ButtonContainer>
       </Background>
       <Dialog
@@ -87,7 +85,21 @@ export default function Room() {
         title="이번달 실행 결과"
         onConfirm={handleDialogOnConfirm}
       >
-        <p>{JSON.stringify(updatedValueOfCurrInterval)}</p>
+        <ResultTable>
+          {/* todo: 금액은 따로 저장해서 보여줘야함. (다른 수치는 마이너스 허용 안하게 했는데 금액도 거기 끼어있기때문) */}
+          {!!updatedValueOfCurrInterval.money && (
+            <Row>금액:{updatedValueOfCurrInterval.money}</Row>
+          )}
+          {!!updatedValueOfCurrInterval.codingSkillPoint && (
+            <Row>개발력: +{updatedValueOfCurrInterval.codingSkillPoint}</Row>
+          )}
+          {!!updatedValueOfCurrInterval.socialSkillPoint && (
+            <Row>사회성: +{updatedValueOfCurrInterval.socialSkillPoint}</Row>
+          )}
+          {!!updatedValueOfCurrInterval.stressPoint && (
+            <Row>스트레스: +{updatedValueOfCurrInterval.stressPoint}</Row>
+          )}
+        </ResultTable>
       </Dialog>
     </>
   );
@@ -110,3 +122,7 @@ const ButtonContainer = styled.div`
   bottom: 50px;
   right: 100px;
 `;
+
+const ResultTable = styled.div``;
+
+const Row = styled.div``;

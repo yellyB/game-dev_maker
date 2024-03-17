@@ -32,7 +32,7 @@ export default function ScheduleExecutionProgress({ onEnd }: Props) {
     turtleNeckPoint: 0,
   });
 
-  const filterNegativeValue = (object: { [key: string]: number }) => {
+  const filterNegativeValue = (object: Omit<UserState, "name">) => {
     return Object.fromEntries(
       Object.entries(object).filter(([key, value]) => value >= 0)
     ) as Omit<UserState, "name">;
@@ -46,7 +46,7 @@ export default function ScheduleExecutionProgress({ onEnd }: Props) {
     }, SCHEDULE_EXECUTING_TIME / IMAGES_LEN);
 
     const scheduleInterval = setInterval(() => {
-      console.log("2:", index);
+      // console.log("2:", index);
       setErrorMessage(() => "");
       setIndex((prevIndex) => prevIndex + 1);
 
@@ -56,6 +56,7 @@ export default function ScheduleExecutionProgress({ onEnd }: Props) {
         const currSchedule = selectedSchedules[index];
         const futureMoney = state.money + currSchedule.money;
         // todo: 돈 없으면 실행화면의 한 프레임도 보여주면 안됨.
+        // bug: 첫 스케줄은 인터벌 두개를 잡아먹고 있음.
         if (futureMoney < 0 && currSchedule.name !== "코인 투자") {
           setErrorMessage("소지금이 부족하여 스케줄을 실행할 수 없습니다.");
           return;
