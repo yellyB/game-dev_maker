@@ -69,11 +69,13 @@ export default function Room() {
         )}
         <ButtonContainer>
           <Button
+            color={"#393977"}
             onClick={() => {
               setIsTimeTableOpen(true);
               setShowOverlay(true);
             }}
             disabled={isScheduleExcuting}
+            size="large"
           >
             스케줄 짜기
           </Button>
@@ -119,8 +121,8 @@ const Background = styled.div`
 
 const ButtonContainer = styled.div`
   position: absolute;
-  bottom: 50px;
-  right: 100px;
+  top: 200px;
+  right: 60px;
 `;
 
 const ResultTable = styled.div``;
