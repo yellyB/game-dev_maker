@@ -107,7 +107,7 @@ export default function ScheduleExecutionProgress({ onEnd }: Props) {
 
   return (
     <Container>
-      {currRunningSchedule.name}
+      <ScheduleName>{currRunningSchedule.name}</ScheduleName>
       {!!errorMessage ? (
         errorMessage
       ) : (
@@ -121,7 +121,7 @@ export default function ScheduleExecutionProgress({ onEnd }: Props) {
 }
 
 const Container = styled.div`
-  width: 50%;
-  height: 50%;
   border: 3px solid green;
 `;
+
+const ScheduleName = styled.div``;

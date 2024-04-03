@@ -2,6 +2,7 @@ import { useState } from "react";
 import styled from "styled-components";
 import { PointOfUserState } from "types";
 import { END_MONTH } from "datas/constantDatas";
+import { colors } from "datas/colors";
 
 import Overlay from "../components/Overlay";
 import ScheduleExecutionProgress from "../components/ScheduleExecutionProgress";
@@ -59,28 +60,36 @@ export default function Room() {
 
   return (
     <>
-      <Background className="container">
-        <GameState />
-        <Overlay isShow={showOverlay} onClose={() => setShowOverlay(false)}>
-          <ScheduleTable open={isTimeTableOpen} onExecute={handleExecute} />
-        </Overlay>
+      <Container>
         {isScheduleExcuting && (
-          <ScheduleExecutionProgress onEnd={handleOnEnd} />
+          <ScheduleExecutionProgressWrapper>
+            <ScheduleExecutionProgress onEnd={handleOnEnd} />
+          </ScheduleExecutionProgressWrapper>
         )}
-        <ButtonContainer>
-          <Button
-            color={"#393977"}
-            onClick={() => {
-              setIsTimeTableOpen(true);
-              setShowOverlay(true);
-            }}
-            disabled={isScheduleExcuting}
-            size="large"
-          >
-            스케줄 짜기
-          </Button>
-        </ButtonContainer>
-      </Background>
+
+        <Month>진행중인 월: {month}월</Month>
+
+        <Content>
+          <GameState />
+          <ButtonContainer>
+            <Button
+              color={colors.navy}
+              onClick={() => {
+                setIsTimeTableOpen(true);
+                setShowOverlay(true);
+              }}
+              disabled={isScheduleExcuting}
+              size="large"
+            >
+              스케줄 짜기
+            </Button>
+          </ButtonContainer>
+        </Content>
+      </Container>
+
+      <Overlay isShow={showOverlay} onClose={() => setShowOverlay(false)}>
+        <ScheduleTable open={isTimeTableOpen} onExecute={handleExecute} />
+      </Overlay>
       <Dialog
         isOpen={IsDialogOpen}
         onClose={() => setIsDialogOpen(false)}
@@ -107,24 +116,48 @@ export default function Room() {
   );
 }
 
-const Background = styled.div`
+const Container = styled.div`
+  display: flex;
+  justify-content: space-between;
   width: 100%;
   height: 100%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
 
   background-image: url("/images/home.png");
   background-size: cover;
   background-position: center;
 `;
 
+const Content = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  padding: 0 8px;
+
+  button {
+    width: 100%;
+  }
+`;
+
+const Month = styled.div`
+  float: right;
+  margin: 20px;
+  font-size: 28px;
+`;
+
 const ButtonContainer = styled.div`
-  position: absolute;
-  top: 200px;
-  right: 60px;
+  margin: 12px 0;
 `;
 
 const ResultTable = styled.div``;
 
 const Row = styled.div``;
+
+const ScheduleExecutionProgressWrapper = styled.div`
+  position: absolute;
+  width: 100%;
+  height: 100%;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+`;

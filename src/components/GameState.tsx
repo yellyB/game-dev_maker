@@ -1,17 +1,15 @@
 import styled from "styled-components";
 import { useStateContext } from "../context/state.context";
-import { useGameContext } from "context/game.context";
 import { MAX_POINT } from "../datas/constantDatas";
 import { comma } from "../common/utils";
 
 export default function GameState() {
   const { state } = useStateContext();
-  const { month } = useGameContext();
 
   return (
     <Container>
-      <Row>진행중인 월: {month}월</Row>
       <Row>{state.name}의 스탯</Row>
+      <br />
       <Row>소지금: {comma(state.money)}원</Row>
       <Row>
         개발력: {state.codingSkillPoint}/{MAX_POINT}
@@ -27,14 +25,15 @@ export default function GameState() {
 }
 
 const Container = styled.div`
-  background: palegreen;
+  height: 80%;
+  padding: 20px 60px;
+  line-height: 160%;
 
-  position: absolute;
-  width: 300px;
-  height: 200px;
+  background-color: #000000;
+  opacity: 0.7;
 
-  top: 0;
-  right: 0px;
+  font-size: 20px;
+  color: white;
 `;
 
 const Row = styled.div``;
