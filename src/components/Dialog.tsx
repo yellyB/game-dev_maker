@@ -33,9 +33,9 @@ export default function Dialog({
 
   return (
     <Overlay>
-      <Content>
+      <DialogContainer>
         <Title>{title}</Title>
-        {children}
+        <Content>{children}</Content>
         <ButtonWrapper>
           <Button
             color={colors.green}
@@ -47,7 +47,7 @@ export default function Dialog({
             확인
           </Button>
         </ButtonWrapper>
-      </Content>
+      </DialogContainer>
     </Overlay>
   );
 }
@@ -62,11 +62,9 @@ const Overlay = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-
-  border: 1px solid blue;
 `;
 
-const Content = styled.div`
+const DialogContainer = styled.div`
   background-color: white;
   padding: 20px;
   border-radius: 8px;
@@ -74,6 +72,10 @@ const Content = styled.div`
 
 const Title = styled.h2`
   margin-top: 0;
+`;
+
+const Content = styled.div`
+  margin: 30px 0;
 `;
 
 const ButtonWrapper = styled.div`

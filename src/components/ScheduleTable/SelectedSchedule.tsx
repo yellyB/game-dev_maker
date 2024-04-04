@@ -1,6 +1,8 @@
 import styled from "styled-components";
 import { useSchedulesContext } from "context/schedules.context";
 import { useGameContext } from "context/game.context";
+import { colors } from "datas/colors";
+import Divider from "../Divider";
 
 export default function ScheduleTable() {
   const { selectedSchedules } = useSchedulesContext();
@@ -13,7 +15,7 @@ export default function ScheduleTable() {
         {Array.from({ length: 4 }, (_, i) => i + 1).map((week, index) => (
           <Row key={week}>
             <Label>{week}주</Label>
-            <Divider />
+            <Divider direction="vertical" thickness={1} />
             {typeof selectedSchedules[index] !== "undefined" && (
               <Cell className="value">{selectedSchedules[index].name}</Cell>
             )}
@@ -26,7 +28,7 @@ export default function ScheduleTable() {
 
 const Container = styled.div`
   width: 350px;
-  padding: 30px;
+  padding: 18px;
 `;
 
 const Table = styled.div``;
@@ -36,21 +38,17 @@ const Row = styled.div`
   height: 50px;
   margin: 5px;
   border-radius: 6px;
-  border: 1px solid lightgray;
+  border: 1px solid ${colors.lightGray};
 `;
 
 const Cell = styled.div`
-  padding: 10px 18px;
+  padding: 10px 14px;
   display: flex;
   justify-content: center;
+  font-weight: bold;
+  font-size: 15px;
 `;
 
 const Label = styled(Cell)`
   width: 16%;
-`;
-
-const Divider = styled.div`
-  width: 1px;
-  background-color: lightgray;
-  height: 100%;
 `;

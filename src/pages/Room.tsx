@@ -21,14 +21,12 @@ export default function Room() {
   const [ending, isTurtleEnding] = useEndingType();
 
   const [IsDialogOpen, setIsDialogOpen] = useState(false);
-  const [isTimeTableOpen, setIsTimeTableOpen] = useState(false);
   const [isScheduleExcuting, setIsScheduleExcuting] = useState(false);
   const [showOverlay, setShowOverlay] = useState(false);
   const [updatedValueOfCurrInterval, setUpdatedValueOfCurrInterval] =
     useState<PointOfUserState>({});
 
   const handleExecute = () => {
-    setIsTimeTableOpen(false);
     setShowOverlay(false);
     setIsScheduleExcuting(true);
   };
@@ -75,7 +73,6 @@ export default function Room() {
             <Button
               color={colors.navy}
               onClick={() => {
-                setIsTimeTableOpen(true);
                 setShowOverlay(true);
               }}
               disabled={isScheduleExcuting}
@@ -87,8 +84,14 @@ export default function Room() {
         </Content>
       </Container>
 
-      <Overlay isShow={showOverlay} onClose={() => setShowOverlay(false)}>
-        <ScheduleTable open={isTimeTableOpen} onExecute={handleExecute} />
+      <Overlay
+        isShow={showOverlay}
+        onClose={() => {
+          clear();
+          setShowOverlay(false);
+        }}
+      >
+        <ScheduleTable onExecute={handleExecute} />
       </Overlay>
       <Dialog
         isOpen={IsDialogOpen}

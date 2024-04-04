@@ -4,12 +4,12 @@ import SelectedSchedule from "./SelectedSchedule";
 import ScheduleList from "./ScheduleList";
 import { useSchedulesContext } from "../../context/schedules.context";
 import Button from "../Button";
+import { colors } from "datas/colors";
+import Divider from "../Divider";
 
 export default function ScheduleTable({
-  open,
   onExecute,
 }: {
-  open: boolean;
   onExecute: () => void;
 }) {
   const { selectedSchedules, clear } = useSchedulesContext();
@@ -19,33 +19,38 @@ export default function ScheduleTable({
   };
 
   return (
-    <Container open={open}>
+    <Container>
       <Content>
         <SelectedSchedule />
+        <Divider direction="vertical" thickness={2} length={448} />
         <ScheduleList />
       </Content>
+
+      <Divider direction="horizen" thickness={5} />
+
       <ButtonWrapper>
-        <Button onClick={clear}>clear</Button>
+        <Button onClick={clear} color={colors.red}>
+          초기화
+        </Button>
         <Button
           onClick={handleExuceteOnClick}
           disabled={selectedSchedules.length !== 4}
+          color={colors.green}
         >
-          execute
+          실행
         </Button>
       </ButtonWrapper>
     </Container>
   );
 }
 
-const Container = styled.div<{ open: boolean }>`
-  display: ${({ open }) => (open ? "display" : "none")};
-  // position: absolute;
-  // top: 100px;
-  // width: 100%;
-  // height: 100%;
-  background: #fff;
+const Container = styled.div`
+  background: ${colors.paleGray};
+`;
 
-  border: 1px solid blue;
+const Content = styled.div`
+  display: flex;
+  flex-direction: row;
 `;
 
 const ButtonWrapper = styled.div`
@@ -53,11 +58,4 @@ const ButtonWrapper = styled.div`
   gap: 20px;
   padding: 20px;
   justify-content: flex-end;
-`;
-
-const Content = styled.div`
-  border: 1px solid blue;
-
-  display: flex;
-  flex-direction: row;
 `;

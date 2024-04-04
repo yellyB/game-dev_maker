@@ -3,6 +3,7 @@ import { useSchedulesContext } from "../../context/schedules.context";
 import { schedules } from "../../datas/schedules";
 import { comma } from "../../common/utils";
 import { Schedule } from "types";
+import { colors } from "datas/colors";
 
 export default function ScheduleList() {
   const { set: setSchedule } = useSchedulesContext();
@@ -38,12 +39,11 @@ export default function ScheduleList() {
 
 const Container = styled.div`
   width: 250px;
-  border: 1px solid pink;
+  padding: 18px;
 `;
 
 const Group = styled.div`
   margin: 6px;
-  border: 1px solid yellow;
 `;
 const GroupName = styled.div`
   font-size: 20px;
@@ -51,26 +51,25 @@ const GroupName = styled.div`
 `;
 const Item = styled.div`
   display: flex;
-  // flex-direction: column;
-  // gap: 2px;
-  border: 1px solid lightgray;
+  border: 1px solid ${colors.lightGray};
   border-radius: 6px;
   margin: 2px 0;
   padding: 10px 18px;
   flex-gap: 4px;
 
   &:hover {
-    background-color: lightblue;
+    background-color: ${colors.lightBlue};
   }
   &:active {
-    background-color: black;
-    color: white;
+    background-color: ${colors.black};
+    color: ${colors.white};
   }
 `;
 
 const Row = styled.div`
   width: 60%;
   font-weight: bold;
+  font-size: 15px;
 `;
 const SubRow = styled.div`
   font-size: 14px;
