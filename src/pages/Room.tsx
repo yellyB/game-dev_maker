@@ -65,7 +65,7 @@ export default function Room() {
           </ScheduleExecutionProgressWrapper>
         )}
 
-        <Month>진행중인 월: {month}월</Month>
+        <Month>날짜: {month}월</Month>
 
         <Content>
           <GameState />

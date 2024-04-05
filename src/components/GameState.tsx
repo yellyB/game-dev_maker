@@ -8,7 +8,7 @@ export default function GameState() {
 
   return (
     <Container>
-      <Row>{state.name}의 스탯</Row>
+      <Row>{state.name}의 능력치</Row>
       <br />
       <Row>소지금: {comma(state.money)}원</Row>
       <Row>
@@ -25,6 +25,7 @@ export default function GameState() {
 }
 
 const Container = styled.div`
+  min-width: 160px;
   height: 80%;
   padding: 20px 60px;
   line-height: 160%;
