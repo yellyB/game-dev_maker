@@ -4,6 +4,7 @@ import { PointOfUserState, SelectedSchedule, UserState } from "types";
 import { useSchedulesContext } from "../context/schedules.context";
 import { useStateContext } from "../context/state.context";
 import { SCHEDULE_EXECUTING_TIME } from "../datas/constantDatas";
+import { colors } from "datas/colors";
 
 interface Props {
   onEnd: (updatedValueOfCurrInterval: PointOfUserState) => void;
@@ -109,7 +110,7 @@ export default function ScheduleExecutionProgress({ onEnd }: Props) {
     <Container>
       <ScheduleName>{currRunningSchedule.name}</ScheduleName>
       {!!errorMessage ? (
-        errorMessage
+        <ErrorMessage>{errorMessage}</ErrorMessage>
       ) : (
         <img
           src={`/images/${images[imageIndex]}`}
@@ -121,7 +122,25 @@ export default function ScheduleExecutionProgress({ onEnd }: Props) {
 }
 
 const Container = styled.div`
-  border: 3px solid green;
+  min-width: 500px;
+  min-height: 500px;
+  display: flex;
+  flex-direction: column;
+  jsutify-content: center;
+  items-align: center;
+  padding: 10px;
+
+  background: ${colors.white};
+  border: 6px solid ${colors.navy};
+  border-radius: 4px;
+  z-index: 999;
 `;
 
-const ScheduleName = styled.div``;
+const ScheduleName = styled.div`
+  margin: 10px;
+  font-size: 24px;
+`;
+
+const ErrorMessage = styled.div`
+  align-self: center;
+`;
