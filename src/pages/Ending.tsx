@@ -1,9 +1,9 @@
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import styled from "styled-components";
-import EndingAnimation from "../components/EndingAnimation";
 import { useStateContext } from "../context/state.context";
 import { useEndingType } from "../hooks/useEndingType";
 import { MINIMUM_POINT_TO_MAJOR_COMPANY } from "datas/constantDatas";
+import { colors } from "datas/colors";
 
 type endingCode =
   | "majorCompany"
@@ -21,67 +21,106 @@ type endingTitle =
 type EndingDataSet = {
   code: endingCode;
   title: endingTitle;
+  description: string;
 };
 
 export default function Ending() {
   const { state } = useStateContext();
   const [ending, isTurtleEnding] = useEndingType();
 
-  const [backgroundImage, setBackgroundImage] = useState("/images/home.png"); // 초기 배경 이미지 경로 설정
+  const [backgroundImage, setBackgroundImage] = useState("/images/home.png");
 
-  const getEndingType: () => EndingDataSet = () => {
-    if (isTurtleEnding) return { code: "becomeTurtle", title: "거북이가 되다" };
+  const getEndingType: EndingDataSet = useMemo(() => {
+    if (isTurtleEnding)
+      return {
+        code: "becomeTurtle",
+        title: "거북이가 되다",
+        description: '"' + "...... 바른 자세로 살걸 그랬어." + '"',
+      };
 
     const isShowCoinInvestorEvent = false;
 
     if (isShowCoinInvestorEvent) {
-      return { code: "coinInvestor", title: "코인투자자로 인생역전" };
+      return {
+        code: "coinInvestor",
+        title: "코인투자자로 인생역전",
+        description: "역시 인생은 한방이죠!",
+      };
     }
     if (state.codingSkillPoint >= MINIMUM_POINT_TO_MAJOR_COMPANY) {
       if (state.socialSkillPoint >= MINIMUM_POINT_TO_MAJOR_COMPANY) {
-        return { code: "majorCompany", title: "대기업 취업" };
+        return {
+          code: "majorCompany",
+          title: "대기업 취업",
+          description: "원하는걸 이뤄냈군요! 부모님이 기뻐하시겠어요.",
+        };
       }
-      return { code: "freelancer", title: "커뮤니티 사이트 운영자" };
+      return {
+        code: "freelancer",
+        title: "커뮤니티 사이트 운영자",
+        description: "집이 곧 일터. 내향인이라면 최고의 직업일수도..??",
+      };
     }
-    return { code: "selfEmployed", title: "치킨집 사장" };
-  };
-
-  const changeBackgroundImage = () => {
-    setBackgroundImage(
-      backgroundImage === "/images/ending/대기업.png"
-        ? "/images/ending/turtle1.png"
-        : "/images/ending/대기업.png"
-    ); // 새로운 배경 이미지로 변경
-  };
+    return {
+      code: "selfEmployed",
+      title: "치킨집 사장",
+      description: "뜻대로는 되지 않았지만.. 뭐, 이런게 인생이죠.",
+    };
+  }, [isTurtleEnding, state.codingSkillPoint, state.socialSkillPoint]);
 
   useEffect(() => {
-    // 일정 시간 후에 setShowImage를 호출하여 이미지를 나타나게 함
     const timer = setTimeout(() => {
-      setBackgroundImage("/images/ending/turtle1.png"); // 새로운 배경 이미지로 변경
-    }, 1000); // 1초 후에 이미지를 나타나게 함
+      setBackgroundImage(`/images/ending/${getEndingType.code}.png`);
+    }, 0);
 
-    // 컴포넌트가 언마운트 될 때 타이머를 클리어하여 메모리 누수를 방지
     return () => clearTimeout(timer);
-  }, []);
+  }, [getEndingType.code]);
 
   return (
     <Background
       className="container"
       style={{ backgroundImage: `url(${backgroundImage})` }}
     >
-      ending: {getEndingType().title}
-      {/* <EndingAnimation /> */}
-      <button onClick={changeBackgroundImage}>test</button>
+      <Content>
+        <Title>{getEndingType.title}</Title>
+        <Description>{getEndingType.description}</Description>
+      </Content>
     </Background>
   );
 }
 
 const Background = styled.div`
+  display: flex;
+  flex-direction: row;
+  align-items: flex-end;
   background: black;
 
   width: 100%;
   height: 100%;
 
   transition: background-image 2s ease-in-out;
-  background-repeat: no-repeat; /* 이미지 반복 없음 */
+  background-repeat: no-repeat;
+`;
+
+const Content = styled.div`
+  flex: 1;
+  text-align: center;
+  background-color: rgba(0, 0, 0, 0.65);
+  color: ${colors.white};
+  height: 100px;
+  margin: 18px;
+  padding: 18px;
+
+  outline: 6px solid rgba(255, 255, 255, 0.7);
+  border-radius: 2px;
+  p {
+    margin: 18px;
+  }
+`;
+
+const Title = styled.p`
+  font-size: 24px;
+`;
+const Description = styled.p`
+  color: ${colors.lightGray};
 `;

@@ -2,6 +2,7 @@ import styled from "styled-components";
 import { useStateContext } from "../context/state.context";
 import { MAX_POINT } from "../datas/constantDatas";
 import { comma } from "../common/utils";
+import { colors } from "datas/colors";
 
 export default function GameState() {
   const { state } = useStateContext();
@@ -30,7 +31,7 @@ const Container = styled.div`
   padding: 20px 60px;
   line-height: 160%;
 
-  background-color: #000000;
+  background-color: ${colors.black};
   opacity: 0.7;
 
   font-size: 20px;
