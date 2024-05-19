@@ -25,20 +25,19 @@ type EndingDataSet = {
 };
 
 export default function Ending() {
-  const { state } = useStateContext();
+  const { state, isShowCoinInvestorEvent } = useStateContext();
   const [ending, isTurtleEnding] = useEndingType();
 
   const [backgroundImage, setBackgroundImage] = useState("/images/home.png");
 
   const getEndingType: EndingDataSet = useMemo(() => {
+    console.log(isShowCoinInvestorEvent);
     if (isTurtleEnding)
       return {
         code: "becomeTurtle",
         title: "거북이가 되다",
         description: '"' + "...... 바른 자세로 살걸 그랬어." + '"',
       };
-
-    const isShowCoinInvestorEvent = false;
 
     if (isShowCoinInvestorEvent) {
       return {

@@ -5,6 +5,7 @@ import { useSchedulesContext } from "../context/schedules.context";
 import { useStateContext } from "../context/state.context";
 import { SCHEDULE_EXECUTING_TIME } from "../datas/constantDatas";
 import { colors } from "datas/colors";
+import { useEndingType } from "../hooks/useEndingType";
 
 interface Props {
   onEnd: (updatedValueOfCurrInterval: PointOfUserState) => void;
@@ -14,7 +15,8 @@ const images = ["동작1.png", "동작2.png", "동작3.png"];
 
 export default function ScheduleExecutionProgress({ onEnd }: Props) {
   const { selectedSchedules, set, pop, clear } = useSchedulesContext();
-  const { state, updatePoints } = useStateContext();
+  const { state, updatePoints, handleSetIsShowCoinInvestorEvent } =
+    useStateContext();
 
   const IMAGES_LEN = images.length;
   const [imageIndex, setImageIndex] = useState(0);
@@ -47,7 +49,6 @@ export default function ScheduleExecutionProgress({ onEnd }: Props) {
     }, SCHEDULE_EXECUTING_TIME / IMAGES_LEN);
 
     const scheduleInterval = setInterval(() => {
-      // console.log("2:", index);
       setErrorMessage(() => "");
       setIndex((prevIndex) => prevIndex + 1);
 
@@ -61,6 +62,10 @@ export default function ScheduleExecutionProgress({ onEnd }: Props) {
         if (futureMoney < 0 && currSchedule.name !== "코인 투자") {
           setErrorMessage("소지금이 부족하여 스케줄을 실행할 수 없습니다.");
           return;
+        }
+
+        if (currSchedule.name === "코인 투자") {
+          handleSetIsShowCoinInvestorEvent();
         }
 
         const thisMoney =

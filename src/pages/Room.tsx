@@ -13,6 +13,7 @@ import { useGameContext } from "../context/game.context";
 import { useEndingType } from "../hooks/useEndingType";
 import Dialog from "../components/Dialog";
 import Button from "../components/Button";
+import { comma } from "../common/utils";
 
 export default function Room() {
   const { gameState, updateGameState, month, moveToNextMonth } =
@@ -65,7 +66,7 @@ export default function Room() {
           </ScheduleExecutionProgressWrapper>
         )}
 
-        <Month>날짜: {month}월</Month>
+        <Month>현재 날짜: {month}월 (종료: 9월)</Month>
 
         <Content>
           <GameState />
@@ -102,7 +103,7 @@ export default function Room() {
         <ResultTable>
           {/* todo: 금액은 따로 저장해서 보여줘야함. (다른 수치는 마이너스 허용 안하게 했는데 금액도 거기 끼어있기때문) */}
           {!!updatedValueOfCurrInterval.money && (
-            <Row>금액:{updatedValueOfCurrInterval.money}</Row>
+            <Row>금액: {comma(updatedValueOfCurrInterval.money)}</Row>
           )}
           {!!updatedValueOfCurrInterval.codingSkillPoint && (
             <Row>개발력: +{updatedValueOfCurrInterval.codingSkillPoint}</Row>
