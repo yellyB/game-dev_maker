@@ -22,6 +22,7 @@ type EndingDataSet = {
   code: endingCode;
   title: endingTitle;
   description: string;
+  imageUrl: string;
 };
 
 export default function Ending() {
@@ -35,12 +36,13 @@ export default function Ending() {
   );
 
   const getEndingType: EndingDataSet = useMemo(() => {
-    console.log(isShowCoinInvestorEvent);
     if (isTurtleEnding)
       return {
         code: "becomeTurtle",
         title: "거북이가 되다",
         description: '"' + "...... 바른 자세로 살걸 그랬어." + '"',
+        imageUrl:
+          "https://yellyb.github.io/game-dev_maker/images/ending/becomeTurtle.png",
       };
 
     if (isShowCoinInvestorEvent) {
@@ -48,6 +50,8 @@ export default function Ending() {
         code: "coinInvestor",
         title: "코인투자자로 인생역전",
         description: "역시 인생은 한방이죠!",
+        imageUrl:
+          "https://yellyb.github.io/game-dev_maker/images/ending/coinInvestor.png",
       };
     }
     if (state.codingSkillPoint >= MINIMUM_POINT_TO_MAJOR_COMPANY) {
@@ -56,28 +60,35 @@ export default function Ending() {
           code: "majorCompany",
           title: "대기업 취업",
           description: "원하는걸 이뤄냈군요! 부모님이 기뻐하시겠어요.",
+          imageUrl:
+            "https://yellyb.github.io/game-dev_maker/images/ending/majorCompany.png",
         };
       }
       return {
         code: "freelancer",
         title: "커뮤니티 사이트 운영자",
         description: "집이 곧 일터. 내향인이라면 최고의 직업일수도..??",
+        imageUrl:
+          "https://yellyb.github.io/game-dev_maker/images/ending/freelancer.png",
       };
     }
     return {
       code: "selfEmployed",
       title: "치킨집 사장",
       description: "뜻대로는 되지 않았지만.. 뭐, 이런게 인생이죠.",
+      imageUrl:
+        "https://yellyb.github.io/game-dev_maker/images/ending/selfEmployed.png",
     };
-  }, [isTurtleEnding, state.codingSkillPoint, state.socialSkillPoint]);
+  }, [
+    isShowCoinInvestorEvent,
+    isTurtleEnding,
+    state.codingSkillPoint,
+    state.socialSkillPoint,
+  ]);
 
   useEffect(() => {
     const timer = setTimeout(() => {
-      setBackgroundImage(`
-      ${
-        process.env.NODE_ENV === "development" ? "" : "https://yellyb.github.io"
-      }
-      /game-dev_maker/images/ending/${getEndingType.code}.png`);
+      setBackgroundImage(getEndingType.imageUrl);
     }, 0);
 
     return () => clearTimeout(timer);
