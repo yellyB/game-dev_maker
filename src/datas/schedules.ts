@@ -62,7 +62,7 @@ const workSchedules: Schedule<"work">[] = [
     codingSkillPoint: 1,
     socialSkillPoint: -5,
     stressPoint: 0,
-    turtleNeckPoint: 0,
+    turtleNeckPoint: 3,
   },
 ];
 
@@ -85,7 +85,7 @@ const restSchedules: Schedule<"rest">[] = [
     codingSkillPoint: 1,
     socialSkillPoint: -3,
     stressPoint: -5,
-    turtleNeckPoint: 0,
+    turtleNeckPoint: 10,
   },
 ];
 
