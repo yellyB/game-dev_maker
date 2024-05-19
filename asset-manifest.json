@@ -1,14 +1,14 @@
 {
   "files": {
     "main.css": "/game-dev_maker/static/css/main.56d3f5c6.css",
-    "main.js": "/game-dev_maker/static/js/main.240debc0.js",
+    "main.js": "/game-dev_maker/static/js/main.388cf821.js",
     "static/media/DungGeunMo.ttf": "/game-dev_maker/static/media/DungGeunMo.1ebba65b2b010a1e45d7.ttf",
     "index.html": "/game-dev_maker/index.html",
     "main.56d3f5c6.css.map": "/game-dev_maker/static/css/main.56d3f5c6.css.map",
-    "main.240debc0.js.map": "/game-dev_maker/static/js/main.240debc0.js.map"
+    "main.388cf821.js.map": "/game-dev_maker/static/js/main.388cf821.js.map"
   },
   "entrypoints": [
     "static/css/main.56d3f5c6.css",
-    "static/js/main.240debc0.js"
+    "static/js/main.388cf821.js"
   ]
 }
