@@ -126,7 +126,9 @@ const Container = styled.div`
   width: 100%;
   height: 100%;
 
-  background-image: url("/images/home.png");
+  background-image: url("${process.env.NODE_ENV === "development"
+    ? ""
+    : "https://yellyb.github.io"}/game-dev_maker/images/home.png");
   background-size: cover;
   background-position: center;
 `;

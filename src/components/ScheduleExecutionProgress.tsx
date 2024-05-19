@@ -118,8 +118,12 @@ export default function ScheduleExecutionProgress({ onEnd }: Props) {
         <ErrorMessage>{errorMessage}</ErrorMessage>
       ) : (
         <img
-          src={`/images/${images[imageIndex]}`}
-          alt={`Image ${imageIndex + 1}`}
+          src={`${
+            process.env.NODE_ENV === "development"
+              ? ""
+              : "https://yellyb.github.io"
+          }/game-dev_maker/images/${images[imageIndex]}`}
+          alt={`schedule ${imageIndex + 1}`}
         />
       )}
     </Container>

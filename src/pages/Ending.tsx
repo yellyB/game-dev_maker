@@ -28,7 +28,11 @@ export default function Ending() {
   const { state, isShowCoinInvestorEvent } = useStateContext();
   const [ending, isTurtleEnding] = useEndingType();
 
-  const [backgroundImage, setBackgroundImage] = useState("/images/home.png");
+  const [backgroundImage, setBackgroundImage] = useState(
+    `${
+      process.env.NODE_ENV === "development" ? "" : "https://yellyb.github.io"
+    }/game-dev_maker/images/home.png`
+  );
 
   const getEndingType: EndingDataSet = useMemo(() => {
     console.log(isShowCoinInvestorEvent);
@@ -69,7 +73,11 @@ export default function Ending() {
 
   useEffect(() => {
     const timer = setTimeout(() => {
-      setBackgroundImage(`/images/ending/${getEndingType.code}.png`);
+      setBackgroundImage(`
+      ${
+        process.env.NODE_ENV === "development" ? "" : "https://yellyb.github.io"
+      }
+      /game-dev_maker/images/ending/${getEndingType.code}.png`);
     }, 0);
 
     return () => clearTimeout(timer);
