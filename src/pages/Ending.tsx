@@ -4,8 +4,10 @@ import { useStateContext } from "../context/state.context";
 import { useEndingType } from "../hooks/useEndingType";
 import { MINIMUM_POINT_TO_MAJOR_COMPANY } from "datas/constantDatas";
 import { colors } from "datas/colors";
+import Overlay from "../components/Overlay";
+import EndingAlbum from "../components/EndingAlbum";
 
-type endingCode =
+export type endingCode =
   | "majorCompany"
   | "freelancer"
   | "coinInvestor"
@@ -18,7 +20,7 @@ type endingTitle =
   | "치킨집 사장"
   | "거북이가 되다";
 
-type EndingDataSet = {
+export type EndingDataSet = {
   code: endingCode;
   title: endingTitle;
   description: string;
@@ -34,6 +36,8 @@ export default function Ending() {
       process.env.NODE_ENV === "development" ? "" : "https://yellyb.github.io"
     }/game-dev_maker/images/home.png`
   );
+  const [isVisible, setIsVisible] = useState(false);
+  const [isEndingAlbumOpen, setIsEndingAlbumOpen] = useState(false);
 
   const getEndingType: EndingDataSet = useMemo(() => {
     if (isTurtleEnding)
@@ -94,16 +98,41 @@ export default function Ending() {
     return () => clearTimeout(timer);
   }, [getEndingType.code]);
 
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setIsVisible(true);
+    }, 2000); // 2초 후에 div를 표시
+
+    return () => clearTimeout(timer); // 컴포넌트 언마운트 시 타이머 정리
+  }, []);
+
   return (
-    <Background
-      className="container"
-      style={{ backgroundImage: `url(${backgroundImage})` }}
-    >
-      <Content>
-        <Title>{getEndingType.title}</Title>
-        <Description>{getEndingType.description}</Description>
-      </Content>
-    </Background>
+    <>
+      <Background
+        className="container"
+        style={{ backgroundImage: `url(${backgroundImage})` }}
+      >
+        <Content>
+          <Title>{getEndingType.title}</Title>
+          <Description>{getEndingType.description}</Description>
+          <GuideAnotherEnding
+            className={isVisible ? "visible" : ""}
+            onClick={() => setIsEndingAlbumOpen(true)}
+          >
+            → 다른 엔딩?
+          </GuideAnotherEnding>
+        </Content>
+      </Background>
+
+      <Overlay
+        isShow={isEndingAlbumOpen}
+        onClose={() => {
+          setIsEndingAlbumOpen(false);
+        }}
+      >
+        <EndingAlbum />
+      </Overlay>
+    </>
   );
 }
 
@@ -141,4 +170,19 @@ const Title = styled.p`
 `;
 const Description = styled.p`
   color: ${colors.lightGray};
+`;
+
+const GuideAnotherEnding = styled.div`
+  float: right;
+
+  opacity: 0;
+  transition: opacity 1s ease-in-out;
+
+  &.visible {
+    opacity: 1;
+  }
+  &:hover {
+    cursor: pointer;
+    color: ${colors.lightGray};
+  }
 `;
