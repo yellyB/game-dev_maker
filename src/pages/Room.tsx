@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import styled from "styled-components";
 import { PointOfUserState } from "types";
 import { END_MONTH } from "datas/constantDatas";
@@ -21,7 +21,11 @@ export default function Room() {
   const { clear } = useSchedulesContext();
   const [ending, isTurtleEnding] = useEndingType();
 
-  const [IsDialogOpen, setIsDialogOpen] = useState(false);
+  const bgmRef = useRef<HTMLAudioElement>(null);
+  const effectRef = useRef<HTMLAudioElement>(null);
+
+  const [isBgmPlaying, setIsBgmPlaying] = useState(true);
+  const [isDialogOpen, setIsDialogOpen] = useState(false);
   const [isScheduleExcuting, setIsScheduleExcuting] = useState(false);
   const [showOverlay, setShowOverlay] = useState(false);
   const [updatedValueOfCurrInterval, setUpdatedValueOfCurrInterval] =
@@ -33,12 +37,16 @@ export default function Room() {
   };
 
   const handleOnEnd = (updatedValueOfCurrInterval: PointOfUserState) => {
+    const audio = new Audio("/game-dev_maker/sound/effect_end.wav");
+
     setIsScheduleExcuting(false);
     setUpdatedValueOfCurrInterval(updatedValueOfCurrInterval);
 
     // todo: 거북이 엔딩은 실행 도중에도 볼 수 있는 엔딩으로 수정
     if (isTurtleEnding) {
       updateGameState("end");
+      audio.play();
+
       return;
     }
 
@@ -48,14 +56,31 @@ export default function Room() {
   };
 
   const handleDialogOnConfirm = () => {
+    const audio = new Audio("/game-dev_maker/sound/effect_end.wav");
+
     moveToNextMonth();
 
     if (month === END_MONTH) {
       setTimeout(() => {
         updateGameState("end");
+        audio.play();
       }, 1000);
     }
   };
+
+  useEffect(() => {
+    const audio = bgmRef.current;
+
+    setTimeout(() => {
+      if (!audio) return;
+
+      audio.loop = true;
+      audio.volume = 0.3;
+
+      if (isBgmPlaying) audio.play();
+      else audio.pause();
+    }, 1000);
+  }, [isBgmPlaying]);
 
   return (
     <>
@@ -95,7 +120,7 @@ export default function Room() {
         <ScheduleTable onExecute={handleExecute} />
       </Overlay>
       <Dialog
-        isOpen={IsDialogOpen}
+        isOpen={isDialogOpen}
         onClose={() => setIsDialogOpen(false)}
         title="이번달 실행 결과"
         onConfirm={handleDialogOnConfirm}
@@ -116,9 +141,33 @@ export default function Room() {
           )}
         </ResultTable>
       </Dialog>
+
+      <IconContainer onClick={() => setIsBgmPlaying(!isBgmPlaying)}>
+        {isBgmPlaying ? (
+          <AudioIcon src={"/game-dev_maker/images/icon_audio.png"} />
+        ) : (
+          <MuteIcon src={"/game-dev_maker/images/icon_mute.png"} />
+        )}
+      </IconContainer>
+
+      <audio ref={bgmRef} src={"/game-dev_maker/sound/bgm.mp3"} autoPlay />
+      <audio ref={effectRef} src={"/game-dev_maker/sound/effect_end.mp3"} />
     </>
   );
 }
+
+const IconContainer = styled.div`
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  padding: 4px;
+  img {
+    width: 34px;
+  }
+`;
+
+const AudioIcon = styled.img``;
+const MuteIcon = styled.img``;
 
 const Container = styled.div`
   display: flex;

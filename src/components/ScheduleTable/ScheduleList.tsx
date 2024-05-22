@@ -4,12 +4,21 @@ import { schedules } from "../../datas/schedules";
 import { comma } from "../../common/utils";
 import { Schedule } from "types";
 import { colors } from "datas/colors";
+import { MAX_SCHEDULE_COUNT } from "datas/constantDatas";
 
 export default function ScheduleList() {
-  const { set: setSchedule } = useSchedulesContext();
+  const { selectedSchedules, set: setSchedule } = useSchedulesContext();
 
   const handleScheduleOnClick = (selectedSchedule: Schedule) => {
     setSchedule(selectedSchedule);
+
+    let audio;
+    if (selectedSchedules.length >= MAX_SCHEDULE_COUNT) {
+      audio = new Audio("/game-dev_maker/sound/denied.wav");
+    } else {
+      audio = new Audio("/game-dev_maker/sound/select.wav");
+    }
+    audio.play();
   };
 
   return (

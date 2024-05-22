@@ -1,5 +1,6 @@
 import React, { createContext, useContext, useState } from "react";
 import { Schedule, SelectedSchedule } from "types";
+import { MAX_SCHEDULE_COUNT } from "datas/constantDatas";
 
 interface Props {
   children: React.ReactNode;
@@ -18,7 +19,7 @@ export const SchedulesProvider = ({ children }: Props) => {
   const [schedules, setSchedules] = useState<SelectedSchedule[]>([]);
 
   const set = (value: Schedule) => {
-    if (schedules.length >= 4) return;
+    if (schedules.length >= MAX_SCHEDULE_COUNT) return;
 
     // todo: 중간에 삭제된게 있으면 중간에 끼워넣을 수 있도록 추후 개선
     setSchedules([...schedules, { ...value, index: schedules.length }]);

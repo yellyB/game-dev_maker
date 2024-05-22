@@ -1,7 +1,7 @@
 import { styled } from "styled-components";
 import { colors } from "../datas/colors";
 
-const Button = styled.button<{
+const ButtonStyle = styled.button<{
   color?: string;
   size?: "medium" | "large";
 }>`
@@ -46,5 +46,31 @@ const Button = styled.button<{
     cursor: not-allowed;
   }
 `;
+
+const playClickSound = () => {
+  const audio = new Audio("/game-dev_maker/sound/click.wav");
+  audio.play();
+};
+
+interface ButtonProps {
+  color?: string;
+  size?: "medium" | "large";
+  onClick?: () => void;
+  disabled?: boolean;
+  children?: React.ReactNode;
+}
+
+const Button = ({ onClick, children, ...props }: ButtonProps) => {
+  const handleClick = () => {
+    playClickSound();
+    onClick?.();
+  };
+
+  return (
+    <ButtonStyle onClick={handleClick} {...props}>
+      {children}
+    </ButtonStyle>
+  );
+};
 
 export default Button;

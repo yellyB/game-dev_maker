@@ -5,6 +5,7 @@ import ScheduleList from "./ScheduleList";
 import { useSchedulesContext } from "../../context/schedules.context";
 import Button from "../Button";
 import { colors } from "datas/colors";
+import { MAX_SCHEDULE_COUNT } from "datas/constantDatas";
 import Divider from "../Divider";
 
 export default function ScheduleTable({
@@ -34,7 +35,7 @@ export default function ScheduleTable({
         </Button>
         <Button
           onClick={handleExuceteOnClick}
-          disabled={selectedSchedules.length !== 4}
+          disabled={selectedSchedules.length !== MAX_SCHEDULE_COUNT}
           color={colors.green}
         >
           실행
