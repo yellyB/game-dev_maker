@@ -37,7 +37,7 @@ export default function Room() {
   };
 
   const handleOnEnd = (updatedValueOfCurrInterval: PointOfUserState) => {
-    const audio = new Audio("/game-dev_maker/sound/effect_end.wav");
+    const effectSound = effectRef.current;
 
     setIsScheduleExcuting(false);
     setUpdatedValueOfCurrInterval(updatedValueOfCurrInterval);
@@ -45,40 +45,39 @@ export default function Room() {
     // todo: 거북이 엔딩은 실행 도중에도 볼 수 있는 엔딩으로 수정
     if (isTurtleEnding) {
       updateGameState("end");
-      audio.play();
+      effectSound?.play();
 
       return;
     }
 
     clear();
-
     setIsDialogOpen(true);
   };
 
   const handleDialogOnConfirm = () => {
-    const audio = new Audio("/game-dev_maker/sound/effect_end.wav");
+    const effectSound = effectRef.current;
 
     moveToNextMonth();
 
     if (month === END_MONTH) {
       setTimeout(() => {
         updateGameState("end");
-        audio.play();
+        effectSound?.play();
       }, 1000);
     }
   };
 
   useEffect(() => {
-    const audio = bgmRef.current;
+    const bgm = bgmRef.current;
 
     setTimeout(() => {
-      if (!audio) return;
+      if (!bgm) return;
 
-      audio.loop = true;
-      audio.volume = 0.3;
+      bgm.loop = true;
+      bgm.volume = 0.3;
 
-      if (isBgmPlaying) audio.play();
-      else audio.pause();
+      if (isBgmPlaying) bgm.play();
+      else bgm.pause();
     }, 1000);
   }, [isBgmPlaying]);
 
@@ -151,7 +150,10 @@ export default function Room() {
       </IconContainer>
 
       <audio ref={bgmRef} src={"/game-dev_maker/sound/bgm.mp3"} autoPlay />
-      <audio ref={effectRef} src={"/game-dev_maker/sound/effect_end.mp3"} />
+      <audio
+        ref={effectRef}
+        src={"/game-dev_maker/sound/effect_end.wav"}
+      ></audio>
     </>
   );
 }

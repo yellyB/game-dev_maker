@@ -2,7 +2,7 @@ import { useEffect, useMemo, useState } from "react";
 import styled from "styled-components";
 import { useStateContext } from "../context/state.context";
 import { useEndingType } from "../hooks/useEndingType";
-import { MINIMUM_POINT_TO_MAJOR_COMPANY } from "datas/constantDatas";
+import { NEEDED_POINT_FOR_MAJOR_COMPANY } from "datas/constantDatas";
 import { colors } from "datas/colors";
 import Overlay from "../components/Overlay";
 import EndingAlbum from "../components/EndingAlbum";
@@ -58,8 +58,8 @@ export default function Ending() {
           "https://yellyb.github.io/game-dev_maker/images/ending/coinInvestor.png",
       };
     }
-    if (state.codingSkillPoint >= MINIMUM_POINT_TO_MAJOR_COMPANY) {
-      if (state.socialSkillPoint >= MINIMUM_POINT_TO_MAJOR_COMPANY) {
+    if (state.codingSkillPoint >= NEEDED_POINT_FOR_MAJOR_COMPANY) {
+      if (state.socialSkillPoint >= NEEDED_POINT_FOR_MAJOR_COMPANY) {
         return {
           code: "majorCompany",
           title: "대기업 취업",
