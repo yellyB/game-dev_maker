@@ -69,13 +69,12 @@ export default function Room() {
 
   useEffect(() => {
     const bgm = bgmRef.current;
+    if (!bgm) return;
+
+    bgm.loop = true;
+    bgm.volume = 0.3;
 
     setTimeout(() => {
-      if (!bgm) return;
-
-      bgm.loop = true;
-      bgm.volume = 0.3;
-
       if (isBgmPlaying) bgm.play();
       else bgm.pause();
     }, 1000);

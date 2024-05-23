@@ -19,12 +19,12 @@ const StateContext = createContext<{
   state: UserState;
   updatePoints: (paramsToUpdate: Omit<UserState, "name">) => void;
   isShowCoinInvestorEvent: boolean;
-  handleSetIsShowCoinInvestorEvent: () => void;
+  handleCoinInvestorEventTurnOn: () => void;
 }>({
   state: initState,
   updatePoints: () => {},
   isShowCoinInvestorEvent: false,
-  handleSetIsShowCoinInvestorEvent: () => {},
+  handleCoinInvestorEventTurnOn: () => {},
 });
 
 export const useStateContext = () => useContext(StateContext);
@@ -37,7 +37,7 @@ export const StateProvider = ({ children }: Props) => {
     setState({ ...state, ...paramsToUpdate });
   };
 
-  const handleSetIsShowCoinInvestorEvent = () => {
+  const handleCoinInvestorEventTurnOn = () => {
     setIsShowCoinInvestorEvent(true);
   };
 
@@ -47,7 +47,7 @@ export const StateProvider = ({ children }: Props) => {
         state,
         updatePoints,
         isShowCoinInvestorEvent,
-        handleSetIsShowCoinInvestorEvent,
+        handleCoinInvestorEventTurnOn,
       }}
     >
       {children}

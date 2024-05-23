@@ -3,7 +3,10 @@ import styled from "styled-components";
 import { PointOfUserState, SelectedSchedule, UserState } from "types";
 import { useSchedulesContext } from "../context/schedules.context";
 import { useStateContext } from "../context/state.context";
-import { SCHEDULE_EXECUTING_TIME } from "../datas/constantDatas";
+import {
+  ABS_OF_COIN_INVEST_INCOME_RANGE,
+  SCHEDULE_EXECUTING_TIME,
+} from "../datas/constantDatas";
 import { colors } from "datas/colors";
 import { useEndingType } from "../hooks/useEndingType";
 
@@ -15,7 +18,7 @@ const images = ["동작1.png", "동작2.png", "동작3.png"];
 
 export default function ScheduleExecutionProgress({ onEnd }: Props) {
   const { selectedSchedules, set, pop, clear } = useSchedulesContext();
-  const { state, updatePoints, handleSetIsShowCoinInvestorEvent } =
+  const { state, updatePoints, handleCoinInvestorEventTurnOn } =
     useStateContext();
 
   const IMAGES_LEN = images.length;
@@ -64,17 +67,20 @@ export default function ScheduleExecutionProgress({ onEnd }: Props) {
           return;
         }
 
-        if (currSchedule.name === "코인 투자") {
-          handleSetIsShowCoinInvestorEvent();
-        }
-
-        const thisMoney =
+        const moneyOfThisTurn =
           currSchedule.name === "코인 투자"
-            ? Math.floor(Math.random() * 600000) - 300000
+            ? Math.floor(
+                Math.random() * (ABS_OF_COIN_INVEST_INCOME_RANGE * 2)
+              ) - ABS_OF_COIN_INVEST_INCOME_RANGE
             : currSchedule.money;
 
+        if (currSchedule.name === "코인 투자") {
+          if (moneyOfThisTurn >= ABS_OF_COIN_INVEST_INCOME_RANGE * 0.7)
+            handleCoinInvestorEventTurnOn();
+        }
+
         const newValue = {
-          money: state.money + thisMoney,
+          money: state.money + moneyOfThisTurn,
           codingSkillPoint:
             state.codingSkillPoint + currSchedule.codingSkillPoint,
           socialSkillPoint:
@@ -88,7 +94,7 @@ export default function ScheduleExecutionProgress({ onEnd }: Props) {
         // todo: 실시간 값 변경 말고 누적하고 있다가 한번에 값을 변경하기로 해야하나? 고민해보기
         setAccumulatedValue((prevValue) =>
           filterNegativeValue({
-            money: prevValue.money + thisMoney,
+            money: prevValue.money + moneyOfThisTurn,
             codingSkillPoint:
               prevValue.codingSkillPoint + currSchedule.codingSkillPoint,
             socialSkillPoint:
